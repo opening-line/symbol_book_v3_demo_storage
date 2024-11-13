@@ -1,7 +1,8 @@
 import "./App.css"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Index from "./pages/IndexPage.tsx"
 import About from "./pages/AboutPage.tsx"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Example from "./pages/ExamplePage.tsx"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Index />} />
         <Route path='/about' element={<About />} />
+        <Route path='/example' element={<Example />} />
       </Routes>
     </BrowserRouter>
   )
