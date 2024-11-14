@@ -26,37 +26,37 @@ function Index() {
     })
     const signature = facade.signTransaction(account, tx)
     const jsonPayload = facade.transactionFactory.static.attachSignature(
-        tx,
-        signature,
+      tx,
+      signature,
     )
 
     console.log({ jsonPayload })
 
     fetch(
-        new URL("/transactions", "https://sym-test-03.opening-line.jp:3001"),
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: jsonPayload,
-        },
+      new URL("/transactions", "https://sym-test-03.opening-line.jp:3001"),
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: jsonPayload,
+      },
     ).then((res) => res.json())
   }
 
   return (
-      <>
-        <div>
-          <a href='https://vitejs.dev' target='_blank'>
-            <img src={viteLogo} className='logo' alt='Vite logo' />
-          </a>
-          <a href='https://react.dev' target='_blank'>
-            <img src={reactLogo} className='logo react' alt='React logo' />
-          </a>
-        </div>
-        <h1>DEMO APP</h1>
-        <div className='card'>
-          <button onClick={onClick}>click</button>
-        </div>
-      </>
+    <>
+      <div>
+        <a href='https://vitejs.dev' target='_blank'>
+          <img src={viteLogo} className='logo' alt='Vite logo' />
+        </a>
+        <a href='https://react.dev' target='_blank'>
+          <img src={reactLogo} className='logo react' alt='React logo' />
+        </a>
+      </div>
+      <h1>DEMO APP</h1>
+      <div className='card'>
+        <button onClick={onClick}>click</button>
+      </div>
+    </>
   )
 }
 
