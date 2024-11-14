@@ -1,3 +1,4 @@
+import "./Example.css"
 import reactLogo from "../assets/react.svg"
 import viteLogo from "/vite.svg"
 import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
