@@ -8,11 +8,9 @@ function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // ログインロジックを追加します。
-    // 例: API接続や認証処理
     console.log("メール:", email)
     console.log("パスワード:", password)
-    navigate("/list") // ログイン成功後にダッシュボードへリダイレクト
+    navigate("/list")
   }
 
   return (
