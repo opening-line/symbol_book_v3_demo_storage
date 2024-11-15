@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 function LoginPage() {
-  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
@@ -16,15 +15,6 @@ function LoginPage() {
       <div className='w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg'>
         <h1 className='text-2xl font-bold text-center'>ログイン</h1>
         <form onSubmit={handleSubmit}>
-          <div className='mb-4'>
-            <label className='block text-gray-700'>メールアドレス</label>
-            <input
-              type='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className='w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-            />
-          </div>
           <div className='mb-4'>
             <label className='block text-gray-700'>パスワード</label>
             <input
