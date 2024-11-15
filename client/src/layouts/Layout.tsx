@@ -10,8 +10,8 @@ const Layout: React.FC = () => {
 
   const handleLogout = () => {
     deletePrivateKey()
-    navigate('/')
-  };
+    navigate("/")
+  }
 
   return (
     <div>
