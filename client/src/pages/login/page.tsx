@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
+import isValidPrivateKey from "../../utils/isValidPrivateKey.ts"
 
 function LoginPage() {
   const [privateKey, setPrivateKey] = useState("")
@@ -11,14 +12,14 @@ function LoginPage() {
   const [storagePrivateKey, setStoragePrivateKey] = usePrivateKeyStorage()
 
   useEffect(() => {
-    if (storagePrivateKey && isValidHex(storagePrivateKey)) {
+    if (storagePrivateKey && isValidPrivateKey(storagePrivateKey)) {
       navigate("/list")
     }
   }, [storagePrivateKey])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (isValidHex(privateKey)) {
+    if (isValidPrivateKey(privateKey)) {
       setStoragePrivateKey(privateKey)
       navigate("/list")
     } else {
@@ -41,8 +42,6 @@ function LoginPage() {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)
   }
-
-  const isValidHex = (str: string) => /^[0-9a-fA-F]{64}$/.test(str)
 
   return (
     <div className='flex items-center justify-center h-screen bg-gray-100'>
