@@ -19,8 +19,8 @@ const Layout: React.FC = () => {
         <nav className='bg-gray-800'>
           <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
             <div className='flex justify-between items-center h-16'>
-              <div className='flex space-x-4'>
-                <Menu>
+              <Menu>
+                <div className='flex space-x-4'>
                   <div className='flex space-x-4'>
                     <Menu.Item>
                       {({ focus }) => (
@@ -42,19 +42,21 @@ const Layout: React.FC = () => {
                         </Link>
                       )}
                     </Menu.Item>
-                    <Menu.Item>
-                      {({ focus }) => (
-                        <button
-                          onClick={handleLogout}
-                          className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${focus ? "bg-gray-700 text-white" : ""}`}
-                        >
-                          ログアウト
-                        </button>
-                      )}
-                    </Menu.Item>
                   </div>
-                </Menu>
-              </div>
+                </div>
+                <div className='flex'>
+                  <Menu.Item>
+                    {({ focus }) => (
+                      <button
+                        onClick={handleLogout}
+                        className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${focus ? "bg-gray-700 text-white" : ""}`}
+                      >
+                        ログアウト
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu>
             </div>
           </div>
         </nav>
