@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 
 function LoginPage() {
-  const [password, setPassword] = useState("")
+  const [privateKey, setPrivateKey] = useState("")
   const [error, setError] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (isValidHex(password)) {
+    if (isValidHex(privateKey)) {
+      // TODO 秘密鍵を保存する
       navigate("/list")
     } else {
       setError("秘密鍵は64文字の16進数である必要があります。")
@@ -20,7 +21,7 @@ function LoginPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     if (value.length <= 64 && /^[0-9a-fA-F]*$/.test(value)) {
-      setPassword(value)
+      setPrivateKey(value)
       setError("")
     }
   }
@@ -47,7 +48,7 @@ function LoginPage() {
             <div className='relative'>
               <input
                 type={showPassword ? "text" : "password"}
-                value={password}
+                value={privateKey}
                 onChange={handleChange}
                 className='w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
               />
