@@ -1,5 +1,6 @@
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import requireAuth from "./requireAuth.tsx"
 import Layout from "./layouts/Layout.tsx"
 import NotFound from "./pages/404/page.tsx"
 import Login from "./pages/login/page.tsx"
@@ -17,11 +18,11 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/' element={<Layout />}>
-          <Route path='about' element={<About />} />
-          <Route path='example' element={<Example />} />
-          <Route path='new' element={<New />} />
-          <Route path='list' element={<List />} />
-          <Route path='detail/:id' element={<Detail />} />
+          <Route path='about' element={requireAuth(<About />)} />
+          <Route path='example' element={requireAuth(<Example />)} />
+          <Route path='new' element={requireAuth(<New />)} />
+          <Route path='list' element={requireAuth(<List />)} />
+          <Route path='detail/:id' element={requireAuth(<Detail />)} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
