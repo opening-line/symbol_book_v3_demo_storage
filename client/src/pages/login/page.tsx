@@ -25,6 +25,10 @@ function LoginPage() {
     }
   }
 
+  const handleRegisterNavigate = () => {
+    navigate("/register")
+  }
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)
   }
@@ -37,7 +41,9 @@ function LoginPage() {
         <h1 className='text-2xl font-bold text-center'>ログイン</h1>
         <form onSubmit={handleSubmit}>
           <div className='mb-4'>
-            <label className='block text-gray-700 mb-2'>秘密鍵（16進数64文字）</label>
+            <label className='block text-gray-700 mb-2'>
+              秘密鍵（16進数64文字）
+            </label>
             <div className='relative'>
               <input
                 type={showPassword ? "text" : "password"}
@@ -63,6 +69,13 @@ function LoginPage() {
             className='w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400'
           >
             ログイン
+          </button>
+          <hr className='my-4 border-t border-gray-200' />
+          <button
+            onClick={handleRegisterNavigate}
+            className='w-full px-4 py-2 mt-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'
+          >
+            新規鍵生成
           </button>
         </form>
       </div>

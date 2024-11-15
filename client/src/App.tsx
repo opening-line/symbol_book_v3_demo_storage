@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layouts/Layout.tsx"
 import NotFound from "./pages/404/page.tsx"
 import Login from "./pages/login/page.tsx"
+import Register from "./pages/register/page.tsx"
 import New from "./pages/new/page.tsx"
 import List from "./pages/list/page.tsx"
 import Detail from "./pages/detail/page.tsx"
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/' element={<Layout />}>
           <Route path='about' element={<About />} />
           <Route path='example' element={<Example />} />
