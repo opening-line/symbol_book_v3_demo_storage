@@ -1,8 +1,18 @@
 import React from "react"
 import { Outlet, Link } from "react-router-dom"
 import { Menu } from "@headlessui/react"
+import { useNavigate } from "react-router-dom"
+import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 
 const Layout: React.FC = () => {
+  const navigate = useNavigate()
+  const [_a, _b, deletePrivateKey] = usePrivateKeyStorage()
+
+  const handleLogout = () => {
+    deletePrivateKey()
+    navigate('/')
+  };
+
   return (
     <div>
       <header>
@@ -30,6 +40,16 @@ const Layout: React.FC = () => {
                         >
                           New
                         </Link>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ focus }) => (
+                        <button
+                          onClick={handleLogout}
+                          className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${focus ? "bg-gray-700 text-white" : ""}`}
+                        >
+                          ログアウト
+                        </button>
                       )}
                     </Menu.Item>
                   </div>
