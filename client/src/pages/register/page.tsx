@@ -65,6 +65,13 @@ function GenerateKeyPage() {
         >
           違う鍵を生成する
         </button>
+        <hr className='my-4 border-t-2 border-gray-300'/>
+        <button
+          onClick={() => navigate("/")}
+          className='w-full px-4 py-2 mt-4 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400'
+        >
+          ログインページへ戻る
+        </button>
       </div>
     </div>
   )
