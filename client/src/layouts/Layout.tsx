@@ -1,6 +1,6 @@
 import React from "react"
 import { Outlet, Link } from "react-router-dom"
-import { Menu } from "@headlessui/react"
+import { Menu, MenuItem } from "@headlessui/react"
 import { useNavigate } from "react-router-dom"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 
@@ -22,7 +22,7 @@ const Layout: React.FC = () => {
               <Menu>
                 <div className='flex space-x-4'>
                   <div className='flex space-x-4'>
-                    <Menu.Item>
+                    <MenuItem>
                       {({ focus }) => (
                         <Link
                           to='/list'
@@ -31,8 +31,8 @@ const Layout: React.FC = () => {
                           List
                         </Link>
                       )}
-                    </Menu.Item>
-                    <Menu.Item>
+                    </MenuItem>
+                    <MenuItem>
                       {({ focus }) => (
                         <Link
                           to='/new'
@@ -41,11 +41,11 @@ const Layout: React.FC = () => {
                           New
                         </Link>
                       )}
-                    </Menu.Item>
+                    </MenuItem>
                   </div>
                 </div>
                 <div className='flex'>
-                  <Menu.Item>
+                  <MenuItem>
                     {({ focus }) => (
                       <button
                         onClick={handleLogout}
@@ -54,7 +54,7 @@ const Layout: React.FC = () => {
                         ログアウト
                       </button>
                     )}
-                  </Menu.Item>
+                  </MenuItem>
                 </div>
               </Menu>
             </div>
