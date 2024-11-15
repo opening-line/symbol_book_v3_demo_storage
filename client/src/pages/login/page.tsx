@@ -8,8 +8,6 @@ function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("メール:", email)
-    console.log("パスワード:", password)
     navigate("/list")
   }
 
