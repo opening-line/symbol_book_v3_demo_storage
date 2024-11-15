@@ -1,6 +1,7 @@
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layouts/Layout.tsx"
+import NotFound from "./pages/404/page.tsx"
 import Login from "./pages/login/page.tsx"
 import New from "./pages/new/page.tsx"
 import List from "./pages/list/page.tsx"
@@ -20,6 +21,7 @@ function App() {
           <Route path='list' element={<List />} />
           <Route path='detail/:id' element={<Detail />} />
         </Route>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
