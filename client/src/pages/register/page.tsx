@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { randomBytes } from "crypto"
+import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
 
 function GenerateKeyPage() {
   const [privateKey, setPrivateKey] = useState("")
   const [address, setAddress] = useState("")
   const navigate = useNavigate()
+  const [_, setStoragePrivateKey] = usePrivateKeyStorage()
 
   const generateNewKey = () => {
     const newPrivateKey = randomBytes(32).toString("hex").toUpperCase()
@@ -19,7 +21,7 @@ function GenerateKeyPage() {
   }, [])
 
   const handleNavigate = () => {
-    // TODO 秘密鍵を保存する
+    setStoragePrivateKey(privateKey)
     navigate("/list")
   }
 

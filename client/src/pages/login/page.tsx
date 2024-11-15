@@ -1,17 +1,25 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
+import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
 
 function LoginPage() {
   const [privateKey, setPrivateKey] = useState("")
   const [error, setError] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
+  const [storagePrivateKey, setStoragePrivateKey] = usePrivateKeyStorage()
+
+  useEffect(() => {
+    if (storagePrivateKey && isValidHex(storagePrivateKey)) {
+      navigate("/list")
+    }
+  }, [storagePrivateKey])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (isValidHex(privateKey)) {
-      // TODO 秘密鍵を保存する
+      setStoragePrivateKey(privateKey)
       navigate("/list")
     } else {
       setError("秘密鍵は64文字の16進数である必要があります。")
