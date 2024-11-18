@@ -7,7 +7,9 @@ import React, {
   FormEvent,
   useEffect,
 } from "react"
+import useUploadToBlockchain from "../../hooks/uploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
+import {numberToLittleEndianHexString} from "../../utils/hexUtils.ts";
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -17,6 +19,8 @@ const ImageCreatePage: React.FC = () => {
   const [imageHex, setImageHex] = useState<string | null>(null)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const uploadToBlockchain = useUploadToBlockchain()
 
   useEffect(() => {
     if (!selectedFile) {
@@ -68,12 +72,48 @@ const ImageCreatePage: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!selectedFile) {
+    if (!selectedFile || !imageHex) {
       alert("ファイルを選択してください")
       return
     }
     // アップロード処理をここに追加
     console.log("ファイルをアップロード:", selectedFile)
+
+
+    const splitChunks = (hex: string, chunkSize = 2048) => {
+      const chunks = [];
+      for (let i = 0; i < hex.length; i += chunkSize) {
+        chunks.push(hex.substring(i, i + chunkSize));
+      }
+      return chunks;
+    };
+
+    const metadataObject = {
+      fileName: selectedFile.name,
+      timestamp: Date.now()
+    }
+
+    const encoder = new TextEncoder()
+    const metadataHex = Array.from(encoder.encode(JSON.stringify(metadataObject)))
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("")
+
+    const imageChunks = splitChunks(imageHex)
+    const metadataChunks = splitChunks(metadataHex)
+    const headerVersion = '0000000000000000'
+    const headerReserve = '0000000000000000'
+    const headerMetadataOffset = '0000000000000000'
+    const headerPayloadOffset = numberToLittleEndianHexString(metadataChunks.length)
+    const header = `${headerVersion}${headerReserve}${headerMetadataOffset}${headerPayloadOffset}`
+    const chunks = [
+      header,
+      ...metadataChunks,
+      ...imageChunks,
+    ]
+
+    console.log(chunks)
+
+    uploadToBlockchain(chunks)
   }
 
   return (
