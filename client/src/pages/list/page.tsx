@@ -26,8 +26,8 @@ const ImageGallery: React.FC = () => {
   };
 
   return (
-    <div className='container mx-auto px-4'>
-      <h1 className='text-2xl font-bold mt-4 mb-8'>画像一覧</h1>
+    <div className='container mx-auto px-4 pt-4'>
+      <h1 className='text-2xl font-bold mb-8'>画像一覧</h1>
       <button
         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4'
         onClick={handleNewButtonClick}
