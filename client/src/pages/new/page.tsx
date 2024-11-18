@@ -116,6 +116,15 @@ const ImageCreatePage: React.FC = () => {
           アップロード
         </button>
       </form>
+
+      <div className='mt-4'>
+        <button
+          onClick={() => window.history.back()}
+          className='px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded'
+        >
+          一覧へ戻る
+        </button>
+      </div>
     </div>
   )
 }
