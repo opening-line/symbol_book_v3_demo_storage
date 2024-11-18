@@ -62,17 +62,17 @@ const ImageUploadForm: React.FC = () => {
   };
 
   return (
-    <div className='container mx-auto px-4'>
-      <h1 className='text-2xl font-bold mt-4 mb-8'>新規アップロード</h1>
+    <div className='container mx-auto px-4 pt-4'>
+      <h1 className='text-2xl font-bold mb-8'>新規アップロード</h1>
       <form onSubmit={handleSubmit}>
         <div
           onClick={handleUploadClick}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
-          className='border-2 border-dashed border-gray-400 p-6 text-center'
+          className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
           style={{ cursor: 'pointer' }}
         >
-          <p className='mb-2'>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+          <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
           <input
             type='file'
             onChange={handleInputChange}
@@ -80,16 +80,23 @@ const ImageUploadForm: React.FC = () => {
             ref={fileInputRef}
             style={{ display: 'none' }}
           />
+        </div>
+
+        <div>
+          <h1>プレビュー</h1>
           {previewUrl && <img src={previewUrl} alt='Preview' className='max-h-80 mx-auto' />}
         </div>
 
-        <div className='text-wrap break-words text-xs font-mono overflow-y-auto max-h-80 mt-4'>
-          {imageHex}
+        <div className='mb-4'>
+          <h1>データ</h1>
+          <div className='text-wrap break-words text-xs font-mono overflow-y-auto max-h-80'>
+            {imageHex}
+          </div>
         </div>
 
         <button
           type='submit'
-          className={`mt-4 px-4 py-2 rounded ${!selectedFile ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+          className={`px-4 py-2 rounded ${!selectedFile ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
           disabled={!selectedFile}
         >
           アップロード
