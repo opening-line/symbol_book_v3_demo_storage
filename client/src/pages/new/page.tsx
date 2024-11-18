@@ -7,8 +7,11 @@ import React, {
   FormEvent,
   useEffect,
 } from "react"
+import { useNavigate } from "react-router-dom"
 
 const ImageCreatePage: React.FC = () => {
+  const navigate = useNavigate()
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [imageHex, setImageHex] = useState<string | null>(null)
@@ -76,7 +79,7 @@ const ImageCreatePage: React.FC = () => {
   return (
     <div className='container mx-auto px-4 pt-4'>
       <h1 className='text-2xl font-bold mb-8'>新規アップロード</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='mb-4'>
         <div
           onClick={handleUploadClick}
           onDrop={handleDrop}
@@ -117,9 +120,9 @@ const ImageCreatePage: React.FC = () => {
         </button>
       </form>
 
-      <div className='mt-4'>
+      <div>
         <button
-          onClick={() => window.history.back()}
+          onClick={() => navigate("/list")}
           className='px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded'
         >
           一覧へ戻る
