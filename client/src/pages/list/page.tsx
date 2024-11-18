@@ -22,8 +22,8 @@ const ImageGallery: React.FC = () => {
   }
 
   const handleNewButtonClick = () => {
-    navigate("/new");
-  };
+    navigate("/new")
+  }
 
   return (
     <div className='container mx-auto px-4 pt-4'>
@@ -41,7 +41,7 @@ const ImageGallery: React.FC = () => {
             className='max-w-sm rounded overflow-hidden shadow-lg cursor-pointer'
             onClick={() => handleImageClick(image.id)}
           >
-            <img className='w-full' src={image.url} alt={image.alt}/>
+            <img className='w-full' src={image.url} alt={image.alt} />
             <div className='px-6 py-4'>
               <div className='font-bold text-xl mb-2'>{image.alt}</div>
             </div>

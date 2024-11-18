@@ -1,69 +1,77 @@
-import React, {useState, ChangeEvent, DragEvent, useRef, useCallback, FormEvent, useEffect} from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  DragEvent,
+  useRef,
+  useCallback,
+  FormEvent,
+  useEffect,
+} from "react"
 
 const ImageCreatePage: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [imageHex, setImageHex] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [imageHex, setImageHex] = useState<string | null>(null)
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     if (!selectedFile) {
-      setPreviewUrl(null);
-      setImageHex(null);
-      return;
+      setPreviewUrl(null)
+      setImageHex(null)
+      return
     }
 
-    const reader = new FileReader();
+    const reader = new FileReader()
     reader.onloadend = () => {
-      setPreviewUrl(reader.result as string);
-    };
-    reader.readAsDataURL(selectedFile);
+      setPreviewUrl(reader.result as string)
+    }
+    reader.readAsDataURL(selectedFile)
 
     selectedFile.arrayBuffer().then((arrayBuffer) => {
-      const uint8Array = new Uint8Array(arrayBuffer);
+      const uint8Array = new Uint8Array(arrayBuffer)
       const hexString = Array.from(uint8Array)
-        .map(byte => byte.toString(16).padStart(2, '0'))
-        .join('');
-      setImageHex(hexString);
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("")
+      setImageHex(hexString)
     })
-  }, [selectedFile]);
+  }, [selectedFile])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
+    const file = event.target.files?.[0] || null
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile(file)
     }
-  };
+  }
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault()
+    event.stopPropagation()
 
-    const file = event.dataTransfer.files[0];
+    const file = event.dataTransfer.files[0]
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile(file)
     }
-  };
+  }
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
+    event.preventDefault()
+    event.stopPropagation()
+  }
 
   const handleUploadClick = useCallback(() => {
-    fileInputRef.current?.click();
-  }, []);
+    fileInputRef.current?.click()
+  }, [])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     if (!selectedFile) {
-      alert("ファイルを選択してください");
-      return;
+      alert("ファイルを選択してください")
+      return
     }
     // アップロード処理をここに追加
-    console.log("ファイルをアップロード:", selectedFile);
-  };
+    console.log("ファイルをアップロード:", selectedFile)
+  }
 
   return (
     <div className='container mx-auto px-4 pt-4'>
@@ -74,7 +82,7 @@ const ImageCreatePage: React.FC = () => {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         >
           <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
           <input
@@ -82,13 +90,15 @@ const ImageCreatePage: React.FC = () => {
             onChange={handleInputChange}
             accept='image/*'
             ref={fileInputRef}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
         </div>
 
         <div>
           <h1>プレビュー</h1>
-          {previewUrl && <img src={previewUrl} alt='Preview' className='max-h-80 mx-auto' />}
+          {previewUrl && (
+            <img src={previewUrl} alt='Preview' className='max-h-80 mx-auto' />
+          )}
         </div>
 
         <div className='mb-4'>
@@ -100,14 +110,14 @@ const ImageCreatePage: React.FC = () => {
 
         <button
           type='submit'
-          className={`px-4 py-2 rounded ${!selectedFile ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+          className={`px-4 py-2 rounded ${!selectedFile ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700 text-white"}`}
           disabled={!selectedFile}
         >
           アップロード
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default ImageCreatePage;
+export default ImageCreatePage
