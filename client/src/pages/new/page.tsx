@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, DragEvent, useRef, useCallback, FormEvent } from "react";
+import React, {useState, ChangeEvent, DragEvent, useRef, useCallback, FormEvent, useEffect} from "react";
 
 const ImageUploadForm: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -7,28 +7,32 @@ const ImageUploadForm: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (file: File) => {
-    setSelectedFile(file);
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreviewUrl(null);
+      setImageHex(null);
+      return;
+    }
 
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewUrl(reader.result as string);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(selectedFile);
 
-    file.arrayBuffer().then((arrayBuffer) => {
+    selectedFile.arrayBuffer().then((arrayBuffer) => {
       const uint8Array = new Uint8Array(arrayBuffer);
       const hexString = Array.from(uint8Array)
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
       setImageHex(hexString);
     })
-  };
+  }, [selectedFile]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     if (file) {
-      handleFileChange(file);
+      setSelectedFile(file);
     }
   };
 
@@ -38,7 +42,7 @@ const ImageUploadForm: React.FC = () => {
 
     const file = event.dataTransfer.files[0];
     if (file) {
-      handleFileChange(file);
+      setSelectedFile(file);
     }
   };
 
