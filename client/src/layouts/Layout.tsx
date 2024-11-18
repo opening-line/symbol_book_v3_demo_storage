@@ -20,7 +20,7 @@ const Layout: React.FC = () => {
           <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
             <div className='flex justify-between items-center h-16'>
               <Menu>
-                <div className='flex space-x-4'>
+                <div className='flex justify-between'>
                   <div className='flex space-x-4'>
                     <MenuItem>
                       {({ focus }) => (
