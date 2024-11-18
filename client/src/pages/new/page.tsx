@@ -1,6 +1,6 @@
 import React, {useState, ChangeEvent, DragEvent, useRef, useCallback, FormEvent, useEffect} from "react";
 
-const ImageUploadForm: React.FC = () => {
+const ImageCreatePage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [imageHex, setImageHex] = useState<string | null>(null);
@@ -110,4 +110,4 @@ const ImageUploadForm: React.FC = () => {
   );
 };
 
-export default ImageUploadForm;
+export default ImageCreatePage;
