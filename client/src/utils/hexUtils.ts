@@ -32,3 +32,13 @@ export const numberToLittleEndianHexString = (num: number, byteSize = 8) => {
 
   return reversedChunks.join("");
 };
+
+export function combineHexNumbers(num1: number, num2: number): string {
+  if (num1 < 0 || num2 < 0 || num1 >= 0x100000000 || num2 >= 0x100000000) {
+    throw new Error("引数の数値が範囲外です。");
+  }
+
+  const hex1 = num1.toString(16).padStart(8, '0');
+  const hex2 = num2.toString(16).padStart(8, '0');
+  return hex1 + hex2;
+}

@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import useUploadToBlockchain from "../../hooks/uploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
-import {numberToLittleEndianHexString} from "../../utils/hexUtils.ts";
+import {numberToLittleEndianHexString, combineHexNumbers} from "../../utils/hexUtils.ts";
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -98,6 +98,8 @@ const ImageCreatePage: React.FC = () => {
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("")
 
+    const fileIndex = 0
+
     const imageChunks = splitChunks(imageHex)
     const metadataChunks = splitChunks(metadataHex)
     const headerVersion = '0000000000000000'
@@ -109,7 +111,12 @@ const ImageCreatePage: React.FC = () => {
       header,
       ...metadataChunks,
       ...imageChunks,
-    ]
+    ].map((chunk, index) => {
+      return {
+        key: combineHexNumbers(fileIndex, index),
+        chunk,
+      }
+    })
 
     console.log(chunks)
 

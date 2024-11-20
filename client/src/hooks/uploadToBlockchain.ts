@@ -1,47 +1,63 @@
-import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
-import { PrivateKey } from "symbol-sdk"
-import { Network } from "symbol-sdk/nem"
+import { KeyPair, SymbolFacade, metadataUpdateValue } from "symbol-sdk/symbol"
+import { PrivateKey, utils } from "symbol-sdk"
+import { Config } from '../utils/config.ts'
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 
 export default function useUploadToBlockchain() {
   const [privateKey] = usePrivateKeyStorage()
 
-  function uploadToBlockchain(chunks: string[]) {
-    if (!privateKey) return
+  async function uploadToBlockchain(chunks: { key: string, chunk: string }[]) {
+    if (!privateKey) {
+      throw new Error("private key is not set")
+    }
 
     const account = new KeyPair(new PrivateKey(privateKey))
-    const message = new Uint8Array([
-      0x00,
-      ...new TextEncoder().encode("test transaction"),
-    ])
+    const facade = new SymbolFacade(Config.NETWORK)
+    const deadline = facade.now().addHours(2).timestamp;
+    const targetAddress = facade.network.publicKeyToAddress(account.publicKey)
+    const signerPublicKey = account.publicKey.toString()
 
-    const facade = new SymbolFacade(Network.TESTNET.toString())
+    const metadataTransactions = chunks
+      .map(({key, chunk}) => {
+        const chunkUint8 = utils.hexToUint8(chunk)
+        return facade.transactionFactory.createEmbedded({
+          type: 'account_metadata_transaction_v1',
+          signerPublicKey,
+          targetAddress,
+          scopedMetadataKey: BigInt(`0x${key}`),
+          valueSizeDelta: chunkUint8.length,
+          value: metadataUpdateValue(new Uint8Array(), chunkUint8),
+        })
+      })
 
-    const tx = facade.transactionFactory.create({
-      type: "transfer_transaction_v1",
-      signerPublicKey: account.publicKey,
-      deadline: facade.now().addHours(2).timestamp,
-      recipientAddress: facade.network.publicKeyToAddress(account.publicKey),
-      mosaics: [],
-      message,
+    const transactionsHash = SymbolFacade.hashEmbeddedTransactions(metadataTransactions)
+
+    const transaction = facade.transactionFactory.create({
+      type: 'aggregate_complete_transaction_v2',
+      signerPublicKey,
       fee: 1000000n,
-    })
-    const signature = facade.signTransaction(account, tx)
-    const jsonPayload = facade.transactionFactory.static.attachSignature(
-      tx,
-      signature,
-    )
+      deadline,
+      transactions: metadataTransactions,
+      transactionsHash
+    });
 
-    console.log({ jsonPayload })
+    const signature = facade.signTransaction(account, transaction);
+    const jsonPayload = facade.transactionFactory.static.attachSignature(transaction, signature);
+    const hash = facade.hashTransaction(transaction).toString();
 
-    fetch(
-      new URL("/transactions", "https://sym-test-03.opening-line.jp:3001"),
+    return fetch(
+      new URL("/transactions", Config.NODE_URL),
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: jsonPayload,
       },
-    ).then((res) => res.json())
+    ).then((res) => res.json()).then((res: any) => {
+      return {
+        hash,
+        res
+      }
+    })
   }
 
   return uploadToBlockchain
