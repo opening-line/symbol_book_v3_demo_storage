@@ -146,14 +146,16 @@ const ImageCreatePage: React.FC = () => {
 
         <div>
           <h1>プレビュー</h1>
-          {previewUrl && (
-            <img src={previewUrl} alt='Preview' className='max-h-80 mx-auto' />
-          )}
+          <div className='h-[200px] border'>
+            {previewUrl && (
+              <img src={previewUrl} alt='Preview' className='h-full' />
+            )}
+          </div>
         </div>
 
         <div className='mb-4'>
           <h1>データ</h1>
-          <div className='text-wrap break-words text-xs font-mono overflow-y-auto max-h-80'>
+          <div className='text-wrap break-words text-xs font-mono overflow-y-auto h-80 border'>
             {imageHex}
           </div>
         </div>
