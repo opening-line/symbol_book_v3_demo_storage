@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { randomBytes } from "crypto"
+import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
+import { PrivateKey } from "symbol-sdk"
 import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
+import { Config } from '../../utils/config.ts'
 
 function GenerateKeyPage() {
   const [privateKey, setPrivateKey] = useState("")
@@ -12,8 +15,9 @@ function GenerateKeyPage() {
   const generateNewKey = () => {
     const newPrivateKey = randomBytes(32).toString("hex").toUpperCase()
     setPrivateKey(newPrivateKey)
-    // TODO derive address
-    setAddress(randomBytes(8).toString("hex").toUpperCase())
+    const account = new KeyPair(new PrivateKey(newPrivateKey))
+    const facade = new SymbolFacade(Config.NETWORK)
+    setAddress(facade.network.publicKeyToAddress(account.publicKey))
   }
 
   useEffect(() => {
