@@ -5,9 +5,11 @@ import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { DataItem, Header, MetadataResponse } from "../types/BlockchainAPI.ts"
 import { combineLittleEndianHexNumbers } from "../utils/hexUtils.ts"
 import { useEffect, useState } from "react"
+import mime from "mime"
 
 type Data = {
   meta: any
+  mime: string | null
   payload: string
 }
 
@@ -71,6 +73,10 @@ export default function useGetImageFromBlockchain(fileId?: string) {
           decoder.decode(utils.hexToUint8(meta.value)),
         )
 
+        const fileMime = fileMeta.fileName
+          ? mime.getType(fileMeta.fileName)
+          : null
+
         const payload = chunks
           .map((payload) => payload.value)
           .reduce((accumulator, currentValue) => accumulator + currentValue, "")
@@ -81,6 +87,7 @@ export default function useGetImageFromBlockchain(fileId?: string) {
 
         setData({
           meta: fileMeta,
+          mime: fileMime,
           payload: base64Payload,
         })
       } catch (err: any) {
