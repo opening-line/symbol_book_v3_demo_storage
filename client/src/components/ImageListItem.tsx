@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react"
 import useGetImageFromBlockchain from "../hooks/useGetImageFromBlockchain.ts"
 
 type ImageDisplayProps = {
-  fileId: number | string;
-};
+  fileId: number | string
+}
 
 const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
-
   const { data, loading, error } = useGetImageFromBlockchain(fileId.toString())
 
   return (
@@ -23,7 +22,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ImageListItem;
+export default ImageListItem
