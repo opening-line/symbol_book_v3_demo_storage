@@ -17,7 +17,9 @@ const Detail = () => {
         <p>Error loading image</p>
       ) : (
         <>
-          <img src={`data:image/png;base64,${data?.payload}`} alt='Preview' />
+          { data?.payload &&
+            <img src={`data:image/png;base64,${data?.payload}`} alt='Preview' />
+          }
         </>
       )}
     </div>
