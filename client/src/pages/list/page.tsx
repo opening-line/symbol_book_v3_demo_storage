@@ -1,5 +1,5 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import React, {useEffect, useState} from "react"
+import {useNavigate, useParams} from "react-router-dom"
 
 interface Image {
   id: number
@@ -8,6 +8,7 @@ interface Image {
 }
 
 const images: Image[] = [
+  { id: 0, url: "https://example.com/image0.jpg", alt: "Image 0" },
   { id: 1, url: "https://example.com/image1.jpg", alt: "Image 1" },
   { id: 2, url: "https://example.com/image2.jpg", alt: "Image 2" },
   { id: 3, url: "https://example.com/image3.jpg", alt: "Image 3" },
@@ -15,7 +16,13 @@ const images: Image[] = [
 ]
 
 const ImageGallery: React.FC = () => {
+  const { page } = useParams<{ page: string }>()
+  const [perPage, setPerPage] = useState<number>(20)
   const navigate = useNavigate()
+
+  useEffect(() => {
+
+  }, [page, perPage])
 
   const handleImageClick = (id: number) => {
     navigate(`/detail/${id}`)
