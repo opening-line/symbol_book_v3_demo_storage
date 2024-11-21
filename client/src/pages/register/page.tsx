@@ -4,7 +4,7 @@ import { randomBytes } from "crypto"
 import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey } from "symbol-sdk"
 import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
-import { Config } from '../../utils/config.ts'
+import { Config } from "../../utils/config.ts"
 
 function GenerateKeyPage() {
   const [privateKey, setPrivateKey] = useState("")

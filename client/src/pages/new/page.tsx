@@ -9,7 +9,10 @@ import React, {
 } from "react"
 import useUploadToBlockchain from "../../hooks/uploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
-import {numberToLittleEndianHexString, combineLittleEndianHexNumbers} from "../../utils/hexUtils.ts";
+import {
+  numberToLittleEndianHexString,
+  combineLittleEndianHexNumbers,
+} from "../../utils/hexUtils.ts"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -79,22 +82,23 @@ const ImageCreatePage: React.FC = () => {
     // アップロード処理をここに追加
     console.log("ファイルをアップロード:", selectedFile)
 
-
     const splitChunks = (hex: string, chunkSize = 2048) => {
-      const chunks = [];
+      const chunks = []
       for (let i = 0; i < hex.length; i += chunkSize) {
-        chunks.push(hex.substring(i, i + chunkSize));
+        chunks.push(hex.substring(i, i + chunkSize))
       }
-      return chunks;
-    };
+      return chunks
+    }
 
     const metadataObject = {
       fileName: selectedFile.name,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     }
 
     const encoder = new TextEncoder()
-    const metadataHex = Array.from(encoder.encode(JSON.stringify(metadataObject)))
+    const metadataHex = Array.from(
+      encoder.encode(JSON.stringify(metadataObject)),
+    )
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("")
 
@@ -102,22 +106,24 @@ const ImageCreatePage: React.FC = () => {
 
     const imageChunks = splitChunks(imageHex)
     const metadataChunks = splitChunks(metadataHex)
-    const headerVersion = '00000000'
-    const headerReserve = '00000000'
-    const headerLength =  numberToLittleEndianHexString(1 + metadataChunks.length + imageChunks.length)
-    const headerMetadataOffset = '01000000'
-    const headerPayloadOffset = numberToLittleEndianHexString(metadataChunks.length + 1)
+    const headerVersion = "00000000"
+    const headerReserve = "00000000"
+    const headerLength = numberToLittleEndianHexString(
+      1 + metadataChunks.length + imageChunks.length,
+    )
+    const headerMetadataOffset = "01000000"
+    const headerPayloadOffset = numberToLittleEndianHexString(
+      metadataChunks.length + 1,
+    )
     const header = `${headerVersion}${headerReserve}${headerLength}${headerMetadataOffset}${headerPayloadOffset}`
-    const chunks = [
-      header,
-      ...metadataChunks,
-      ...imageChunks,
-    ].map((chunk, index) => {
-      return {
-        key: combineLittleEndianHexNumbers(fileIndex, index),
-        chunk,
-      }
-    })
+    const chunks = [header, ...metadataChunks, ...imageChunks].map(
+      (chunk, index) => {
+        return {
+          key: combineLittleEndianHexNumbers(fileIndex, index),
+          chunk,
+        }
+      },
+    )
 
     console.log(chunks)
 
