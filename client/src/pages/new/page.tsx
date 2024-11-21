@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import useUploadToBlockchain from "../../hooks/uploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
-import {numberToLittleEndianHexString, combineHexNumbers} from "../../utils/hexUtils.ts";
+import {numberToLittleEndianHexString, combineLittleEndianHexNumbers} from "../../utils/hexUtils.ts";
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -114,7 +114,7 @@ const ImageCreatePage: React.FC = () => {
       ...imageChunks,
     ].map((chunk, index) => {
       return {
-        key: combineHexNumbers(fileIndex, index),
+        key: combineLittleEndianHexNumbers(fileIndex, index),
         chunk,
       }
     })
