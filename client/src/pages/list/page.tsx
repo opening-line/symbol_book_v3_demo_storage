@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react"
-import {useNavigate, useParams} from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 interface Image {
   id: number
@@ -20,9 +20,7 @@ const ImageGallery: React.FC = () => {
   const [perPage, setPerPage] = useState<number>(20)
   const navigate = useNavigate()
 
-  useEffect(() => {
-
-  }, [page, perPage])
+  useEffect(() => {}, [page, perPage])
 
   const handleImageClick = (id: number) => {
     navigate(`/detail/${id}`)
