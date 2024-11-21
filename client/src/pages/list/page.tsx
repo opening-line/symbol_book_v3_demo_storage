@@ -4,7 +4,7 @@ import Pagination from "../../components/pagination.tsx";
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
-  const [perPage, setPerPage] = useState<number>(20)
+  const [perPage, setPerPage] = useState<number>(10)
   const navigate = useNavigate()
 
   const pageIndex = useMemo(() => {
@@ -33,6 +33,10 @@ const ImageGallery: React.FC = () => {
 
   const onPageChange = (page: number) => navigate(`/list/${page}`);
 
+  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPerPage(Number(event.target.value));
+  }
+
   return (
     <div className='container mx-auto px-4 pt-4'>
       <h1 className='text-2xl font-bold mb-8'>画像一覧</h1>
@@ -42,6 +46,19 @@ const ImageGallery: React.FC = () => {
       >
         新規作成
       </button>
+      <div className="text-right">
+        <label htmlFor="perPage" className="mr-2">表示件数:</label>
+        <select
+          id="perPage"
+          value={perPage}
+          onChange={handlePerPageChange}
+          className="mt-1"
+        >
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+      </div>
       <div className='grid grid-cols-3 gap-4'>
         {idList.map((id) => (
           <div
@@ -49,7 +66,6 @@ const ImageGallery: React.FC = () => {
             className='max-w-sm rounded overflow-hidden shadow-lg cursor-pointer'
             onClick={() => handleImageClick(id)}
           >
-            {/*<img className="w-full" src={image.url} alt={image.alt}/>*/}
             <div className='px-6 py-4'>
               <div className='font-bold text-xl mb-2'>{id}</div>
             </div>
