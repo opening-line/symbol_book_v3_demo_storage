@@ -102,11 +102,11 @@ const ImageCreatePage: React.FC = () => {
 
     const imageChunks = splitChunks(imageHex)
     const metadataChunks = splitChunks(metadataHex)
-    const headerVersion = '0000000000000000'
-    const headerReserve = '0000000000000000'
-    const headerLength =  numberToLittleEndianHexString(imageChunks.length + metadataChunks.length)
-    const headerMetadataOffset = '0000000000000000'
-    const headerPayloadOffset = numberToLittleEndianHexString(metadataChunks.length)
+    const headerVersion = '00000000'
+    const headerReserve = '00000000'
+    const headerLength =  numberToLittleEndianHexString(1 + metadataChunks.length + imageChunks.length)
+    const headerMetadataOffset = '01000000'
+    const headerPayloadOffset = numberToLittleEndianHexString(metadataChunks.length + 1)
     const header = `${headerVersion}${headerReserve}${headerLength}${headerMetadataOffset}${headerPayloadOffset}`
     const chunks = [
       header,

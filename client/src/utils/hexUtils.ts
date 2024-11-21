@@ -13,7 +13,7 @@ export const reverseHexStringEndian = (hexString: string) => {
 };
 
 
-export const numberToLittleEndianHexString = (num: number, byteSize = 8) => {
+export const numberToLittleEndianHexString = (num: number, byteSize = 4) => {
   if (byteSize <= 0) {
     throw new Error("Invalid byte size");
   }
