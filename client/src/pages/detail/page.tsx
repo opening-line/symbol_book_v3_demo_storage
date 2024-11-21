@@ -27,6 +27,14 @@ const Detail = () => {
           )}
         </>
       )}
+      <div>
+        <button
+          onClick={() => window.history.back()}
+          className='bg-blue-500 text-white py-2 px-4 rounded'
+        >
+          戻る
+        </button>
+      </div>
     </div>
   )
 }
