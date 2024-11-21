@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import Pagination from "../../components/pagination.tsx";
-import ImageListItem from "../../components/ImageListItem.tsx";
+import Pagination from "../../components/pagination.tsx"
+import ImageListItem from "../../components/ImageListItem.tsx"
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
@@ -32,10 +32,10 @@ const ImageGallery: React.FC = () => {
     return Array.from({ length: end - start }, (_, index) => start + index)
   }, [pageIndex, perPage])
 
-  const onPageChange = (page: number) => navigate(`/list/${page}`);
+  const onPageChange = (page: number) => navigate(`/list/${page}`)
 
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setPerPage(Number(event.target.value));
+    setPerPage(Number(event.target.value))
   }
 
   return (
@@ -47,13 +47,15 @@ const ImageGallery: React.FC = () => {
       >
         新規作成
       </button>
-      <div className="text-right">
-        <label htmlFor="perPage" className="mr-2">表示件数:</label>
+      <div className='text-right'>
+        <label htmlFor='perPage' className='mr-2'>
+          表示件数:
+        </label>
         <select
-          id="perPage"
+          id='perPage'
           value={perPage}
           onChange={handlePerPageChange}
-          className="mt-1"
+          className='mt-1'
         >
           <option value={10}>10</option>
           <option value={20}>20</option>
@@ -77,7 +79,11 @@ const ImageGallery: React.FC = () => {
         ))}
       </div>
       <div>
-        <Pagination onPageChange={onPageChange} totalPages={1000} currentPage={pageIndex}/>
+        <Pagination
+          onPageChange={onPageChange}
+          totalPages={1000}
+          currentPage={pageIndex}
+        />
       </div>
     </div>
   )
