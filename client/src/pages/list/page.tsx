@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Pagination from "../../components/pagination.tsx";
+import ImageListItem from "../../components/ImageListItem.tsx";
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
@@ -68,6 +69,9 @@ const ImageGallery: React.FC = () => {
           >
             <div className='px-6 py-4'>
               <div className='font-bold text-xl mb-2'>{id}</div>
+            </div>
+            <div>
+              <ImageListItem fileId={id} />
             </div>
           </div>
         ))}
