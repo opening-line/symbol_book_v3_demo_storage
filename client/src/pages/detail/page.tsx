@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import useGetImageFromBlockchain from "../../hooks/getImageFromBlockchain.ts"
+import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
