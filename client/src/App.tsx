@@ -1,5 +1,5 @@
 import "./App.css"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import requireAuth from "./requireAuth.tsx"
 import Layout from "./layouts/Layout.tsx"
 import NotFound from "./pages/404/page.tsx"
@@ -21,7 +21,8 @@ function App() {
           <Route path='about' element={requireAuth(<About />)} />
           <Route path='example' element={requireAuth(<Example />)} />
           <Route path='new' element={requireAuth(<New />)} />
-          <Route path='list' element={requireAuth(<List />)} />
+          <Route path='list' element={<Navigate to='0' />} />
+          <Route path='list/:page' element={requireAuth(<List />)} />
           <Route path='detail/:id' element={requireAuth(<Detail />)} />
         </Route>
         <Route path='*' element={<NotFound />} />
