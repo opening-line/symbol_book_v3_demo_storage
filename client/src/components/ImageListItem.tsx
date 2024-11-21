@@ -1,6 +1,6 @@
-import React, {useMemo} from "react"
+import React, { useMemo } from "react"
 import useGetImageFromBlockchain from "../hooks/useGetImageFromBlockchain.ts"
-import mime from 'mime';
+import mime from "mime"
 
 type ImageDisplayProps = {
   fileId: number | string
@@ -11,10 +11,10 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
 
   const mimeType = useMemo(() => {
     if (data && data.meta && data.meta.fileName) {
-      return mime.getType(data.meta.fileName);
+      return mime.getType(data.meta.fileName)
     }
 
-    return null;
+    return null
   }, [data])
 
   return (
@@ -26,7 +26,10 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
       ) : (
         <>
           {data && data.payload && mimeType ? (
-            <img src={`data:${mimeType};base64,${data.payload}`} alt='Preview' />
+            <img
+              src={`data:${mimeType};base64,${data.payload}`}
+              alt='Preview'
+            />
           ) : (
             <img src='/no_image.svg' alt='Preview' />
           )}
