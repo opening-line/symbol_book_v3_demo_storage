@@ -14,6 +14,7 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.1.5",
     "@rollup/plugin-inject": "^5.0.5",
+    "mime": "^4.0.4",
     "module": "^1.2.5",
     "node-stdlib-browser": "^1.2.0",
     "path": "^0.12.7",
