@@ -1,20 +1,10 @@
 import { useParams } from "react-router-dom"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
-import { useMemo } from "react"
-import mime from "mime"
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
 
   const { data, loading, error } = useGetImageFromBlockchain(id)
-
-  const mimeType = useMemo(() => {
-    if (data && data.meta && data.meta.fileName) {
-      return mime.getType(data.meta.fileName)
-    }
-
-    return null
-  }, [data])
 
   return (
     <div className='container mx-auto'>
@@ -27,9 +17,9 @@ const Detail = () => {
         <p>Error loading image</p>
       ) : (
         <>
-          {data && data.payload && mimeType ? (
+          {data && data.payload && data.mime ? (
             <img
-              src={`data:${mimeType};base64,${data.payload}`}
+              src={`data:${data.mime};base64,${data.payload}`}
               alt='Preview'
             />
           ) : (
