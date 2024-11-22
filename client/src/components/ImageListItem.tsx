@@ -23,10 +23,10 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
 
   return (
     <div
-      className={`w-full rounded shadow-lg overflow-hidden ${!disabled && "cursor-pointer"}`}
+      className={`w-full rounded shadow-lg ${!disabled && "cursor-pointer"}`}
       onClick={handleClick}
     >
-      <div className='h-[200px] border'>
+      <div className='h-[200px] border overflow-hidden'>
         {loading ? (
           <div className='h-full flex items-center justify-center'>
             <p>
