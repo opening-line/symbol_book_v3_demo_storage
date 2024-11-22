@@ -19,7 +19,7 @@ const ImageGallery: React.FC = () => {
 
   useEffect(() => {}, [pageIndex, perPage])
 
-  const handleImageClick = (id: number) => {
+  const handleImageClick = (id: string | number) => {
     navigate(`/detail/${id}`)
   }
 
@@ -65,16 +65,7 @@ const ImageGallery: React.FC = () => {
       </div>
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4'>
         {idList.map((id) => (
-          <div
-            key={id}
-            className='w-full rounded shadow-lg cursor-pointer overflow-hidden'
-            onClick={() => handleImageClick(id)}
-          >
-            <ImageListItem fileId={id} />
-            <div className='px-6 py-4'>
-              <div className='font-bold text-xl mb-2'>{id}</div>
-            </div>
-          </div>
+          <ImageListItem key={id} fileId={id} onClick={handleImageClick} />
         ))}
       </div>
       <div>
