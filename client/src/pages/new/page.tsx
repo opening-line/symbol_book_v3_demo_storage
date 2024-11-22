@@ -13,8 +13,8 @@ import {
   numberToLittleEndianHexString,
   combineLittleEndianHexNumbers,
 } from "../../utils/hexUtils.ts"
-import Container from "../../components/Container.tsx";
-import Button from "../../components/Button.tsx";
+import Container from "../../components/Container.tsx"
+import Button from "../../components/Button.tsx"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -169,21 +169,13 @@ const ImageCreatePage: React.FC = () => {
           </div>
         </div>
 
-        <Button
-          type='submit'
-          disabled={!selectedFile}
-          color='blue'
-        >
+        <Button type='submit' disabled={!selectedFile} color='blue'>
           アップロード
         </Button>
       </form>
 
       <div>
-        <Button
-          onClick={() => navigate("/list")}
-        >
-          一覧へ戻る
-        </Button>
+        <Button onClick={() => navigate("/list")}>一覧へ戻る</Button>
       </div>
     </Container>
   )

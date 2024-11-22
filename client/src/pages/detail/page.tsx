@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
-import Container from "../../components/Container.tsx";
-import Button from "../../components/Button.tsx";
+import Container from "../../components/Container.tsx"
+import Button from "../../components/Button.tsx"
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
@@ -44,7 +44,7 @@ const Detail = () => {
         {loading ? (
           <div className='flex items-center justify-start'>
             Loading
-            <EllipsisHorizontalIcon className='w-5 h-5'/>
+            <EllipsisHorizontalIcon className='w-5 h-5' />
           </div>
         ) : error ? (
           <div>Error loading image</div>
@@ -67,11 +67,7 @@ const Detail = () => {
         )}
       </div>
       <div>
-        <Button
-          onClick={() => window.history.back()}
-        >
-          戻る
-        </Button>
+        <Button onClick={() => window.history.back()}>戻る</Button>
       </div>
     </Container>
   )
