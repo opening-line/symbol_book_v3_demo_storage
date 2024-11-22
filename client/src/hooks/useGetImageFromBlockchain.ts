@@ -66,21 +66,22 @@ export default function useGetImageFromBlockchain(fileId?: string) {
           header,
         )
 
-        const [meta, ...chunks] = body
-
+        const meta = body
+          .slice(header.metadataOffset - 1, header.payloadOffset - 1)
+          .map((meta) => meta.value)
+          .join()
         const decoder = new TextDecoder("utf-8")
         const fileMeta = JSON.parse(
-          decoder.decode(utils.hexToUint8(meta.value)),
+          decoder.decode(utils.hexToUint8(meta)),
         )
-
         const fileMime = fileMeta.fileName
           ? mime.getType(fileMeta.fileName)
           : null
 
+        const chunks = body.slice(header.payloadOffset - 1)
         const payload = chunks
           .map((payload) => payload.value)
           .reduce((accumulator, currentValue) => accumulator + currentValue, "")
-
         const base64Payload = btoa(
           String.fromCharCode(...utils.hexToUint8(payload)),
         )
