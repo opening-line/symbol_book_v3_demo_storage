@@ -78,8 +78,7 @@ export default function useGetImageFromBlockchain(fileId?: string) {
           ? mime.getType(fileMeta.fileName)
           : null
 
-        const chunks = body.slice(header.payloadOffset - 1)
-        const payload = chunks
+        const payload = body.slice(header.payloadOffset - 1)
           .map((payload) => payload.value)
           .reduce((accumulator, currentValue) => accumulator + currentValue, "")
         const base64Payload = btoa(
