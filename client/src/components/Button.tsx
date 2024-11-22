@@ -1,4 +1,5 @@
 import React from "react"
+import { Button as HeadlessUiButton } from "@headlessui/react"
 
 interface ButtonProps {
   children: React.ReactNode
@@ -15,22 +16,26 @@ function getClassName(color: Color) {
   switch (color) {
     case "red":
       classes.push("bg-red-500")
-      classes.push("hover:bg-red-600")
+      classes.push("data-[hover]:bg-red-600")
+      classes.push("data-[disabled]:bg-red-200")
       classes.push("text-white")
       break
     case "green":
       classes.push("bg-green-500")
-      classes.push("hover:bg-green-600")
+      classes.push("data-[hover]:bg-green-600")
+      classes.push("data-[disabled]:bg-green-200")
       classes.push("text-white")
       break
     case "blue":
       classes.push("bg-blue-500")
-      classes.push("hover:bg-blue-600")
+      classes.push("data-[hover]:bg-blue-600")
+      classes.push("data-[disabled]:bg-blue-200")
       classes.push("text-white")
       break
     default:
       classes.push("bg-gray-300")
-      classes.push("hover:bg-gray-400")
+      classes.push("data-[hover]:bg-gray-400")
+      classes.push("data-[disabled]:bg-gray-100")
       break
   }
   return classes.join(" ")
@@ -44,14 +49,14 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <button
+    <HeadlessUiButton
       className={getClassName(color)}
       onClick={onClick}
       type={type}
       disabled={disabled}
     >
       {children}
-    </button>
+    </HeadlessUiButton>
   )
 }
 
