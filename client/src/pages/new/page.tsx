@@ -15,9 +15,16 @@ import {
 } from "../../utils/hexUtils.ts"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
+import useGetLatestFileIndex from "../../hooks/useGetLatestFileIndex.ts"
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
+  const {
+    data: fileIndexData,
+    loading: loadingFileIndex,
+    error: fileIndexError,
+  } = useGetLatestFileIndex()
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -104,7 +111,11 @@ const ImageCreatePage: React.FC = () => {
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("")
 
-    const fileIndex = 0
+    const fileIndex = fileIndexData?.nextFileIndex
+
+    if (!fileIndex) {
+      throw new Error("")
+    }
 
     const imageChunks = splitChunks(imageHex)
     const metadataChunks = splitChunks(metadataHex)
@@ -135,44 +146,56 @@ const ImageCreatePage: React.FC = () => {
   return (
     <Container>
       <h1 className='text-2xl font-bold mb-8'>新規アップロード</h1>
-      <form onSubmit={handleSubmit} className='mb-4'>
-        <div
-          onClick={handleUploadClick}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
-          style={{ cursor: "pointer" }}
-        >
-          <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
-          <input
-            type='file'
-            onChange={handleInputChange}
-            accept='image/*'
-            ref={fileInputRef}
-            style={{ display: "none" }}
-          />
+      {loadingFileIndex ? (
+        <div className='flex items-center justify-start'>
+          Loading
+          <EllipsisHorizontalIcon className='w-5 h-5' />
         </div>
-
-        <div>
-          <h1>プレビュー</h1>
-          <div className='h-[200px] border'>
-            {previewUrl && (
-              <img src={previewUrl} alt='Preview' className='h-full' />
-            )}
+      ) : fileIndexError ? (
+        <>
+          <p>An Error Occurred</p>
+          <code>{JSON.stringify(fileIndexError)}</code>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit} className='mb-4'>
+          <div
+            onClick={handleUploadClick}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
+            style={{ cursor: "pointer" }}
+          >
+            <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+            <input
+              type='file'
+              onChange={handleInputChange}
+              accept='image/*'
+              ref={fileInputRef}
+              style={{ display: "none" }}
+            />
           </div>
-        </div>
 
-        <div className='mb-4'>
-          <h1>データ</h1>
-          <div className='text-wrap break-words text-xs font-mono overflow-y-auto h-80 border'>
-            {imageHex}
+          <div>
+            <h1>プレビュー</h1>
+            <div className='h-[200px] border'>
+              {previewUrl && (
+                <img src={previewUrl} alt='Preview' className='h-full' />
+              )}
+            </div>
           </div>
-        </div>
 
-        <Button type='submit' disabled={!selectedFile} color='blue'>
-          アップロード
-        </Button>
-      </form>
+          <div className='mb-4'>
+            <h1>データ</h1>
+            <div className='text-wrap break-words text-xs font-mono overflow-y-auto h-80 border'>
+              {imageHex}
+            </div>
+          </div>
+
+          <Button type='submit' disabled={!selectedFile} color='blue'>
+            アップロード
+          </Button>
+        </form>
+      )}
 
       <div>
         <Button onClick={() => navigate("/list")}>一覧へ戻る</Button>
