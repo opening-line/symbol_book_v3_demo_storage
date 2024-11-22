@@ -1,4 +1,5 @@
 import React from "react"
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../hooks/useGetImageFromBlockchain.ts"
 
 type ImageDisplayProps = {
@@ -9,20 +10,32 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
   const { data, loading, error } = useGetImageFromBlockchain(fileId.toString())
 
   return (
-    <div>
+    <div className='h-[200px] border'>
       {loading ? (
-        <p>Loading...</p>
+        <div className='h-full flex items-center justify-center'>
+          <p>
+            Loading
+            <EllipsisHorizontalIcon className='h-5 w-5 inline' />
+          </p>
+        </div>
       ) : error ? (
-        <p>Error loading image</p>
+        <div className='h-full flex items-center justify-center'>
+          <p>No Image Found</p>
+        </div>
       ) : (
         <>
           {data && data.payload && data.mime ? (
             <img
               src={`data:${data.mime};base64,${data.payload}`}
               alt='Preview'
+              className='h-full w-full object-contain'
             />
           ) : (
-            <img src='/no_image.svg' alt='Preview' />
+            <img
+              src='/no_image.svg'
+              alt='Preview'
+              className='h-full w-full object-contain'
+            />
           )}
         </>
       )}

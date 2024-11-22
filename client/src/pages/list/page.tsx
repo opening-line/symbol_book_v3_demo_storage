@@ -43,10 +43,12 @@ const ImageGallery: React.FC = () => {
   return (
     <Container>
       <h1 className='text-2xl font-bold mb-8'>画像一覧</h1>
-      <Button onClick={handleNewButtonClick} color='blue'>
-        新規作成
-      </Button>
-      <div className='text-right'>
+      <div className='mb-4'>
+        <Button onClick={handleNewButtonClick} color='blue'>
+          新規作成
+        </Button>
+      </div>
+      <div className='text-right mb-2'>
         <label htmlFor='perPage' className='mr-2'>
           表示件数:
         </label>
@@ -61,18 +63,18 @@ const ImageGallery: React.FC = () => {
           <option value={50}>50</option>
         </select>
       </div>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4'>
         {idList.map((id) => (
           <div
             key={id}
-            className='max-w-sm rounded overflow-hidden shadow-lg cursor-pointer'
+            className='w-full rounded overflow-hidden shadow-lg cursor-pointer'
             onClick={() => handleImageClick(id)}
           >
-            <div className='px-6 py-4'>
-              <div className='font-bold text-xl mb-2'>{id}</div>
-            </div>
             <div>
               <ImageListItem fileId={id} />
+            </div>
+            <div className='px-6 py-4'>
+              <div className='font-bold text-xl mb-2'>{id}</div>
             </div>
           </div>
         ))}
