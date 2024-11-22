@@ -13,6 +13,7 @@ import {
   numberToLittleEndianHexString,
   combineLittleEndianHexNumbers,
 } from "../../utils/hexUtils.ts"
+import Container from "../../components/Container.tsx";
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -131,7 +132,7 @@ const ImageCreatePage: React.FC = () => {
   }
 
   return (
-    <div className='container mx-auto px-4 pt-4'>
+    <Container>
       <h1 className='text-2xl font-bold mb-8'>新規アップロード</h1>
       <form onSubmit={handleSubmit} className='mb-4'>
         <div
@@ -184,7 +185,7 @@ const ImageCreatePage: React.FC = () => {
           一覧へ戻る
         </button>
       </div>
-    </div>
+    </Container>
   )
 }
 

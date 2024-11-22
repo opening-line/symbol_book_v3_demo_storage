@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Pagination from "../../components/pagination.tsx"
 import ImageListItem from "../../components/ImageListItem.tsx"
+import Container from "../../components/Container.tsx";
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
@@ -39,7 +40,7 @@ const ImageGallery: React.FC = () => {
   }
 
   return (
-    <div className='container mx-auto px-4 pt-4'>
+    <Container>
       <h1 className='text-2xl font-bold mb-8'>画像一覧</h1>
       <button
         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4'
@@ -85,7 +86,7 @@ const ImageGallery: React.FC = () => {
           currentPage={pageIndex}
         />
       </div>
-    </div>
+    </Container>
   )
 }
 

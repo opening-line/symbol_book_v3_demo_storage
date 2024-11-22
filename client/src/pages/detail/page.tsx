@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
+import Container from "../../components/Container.tsx";
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
@@ -8,7 +9,7 @@ const Detail = () => {
   const { data, loading, error } = useGetImageFromBlockchain(id)
 
   return (
-    <div className='container mx-auto px-4 pt-4'>
+    <Container>
       <h1 className='text-2xl font-bold mb-8'>画像詳細</h1>
 
       <p className='mb-2'>
@@ -72,7 +73,7 @@ const Detail = () => {
           戻る
         </button>
       </div>
-    </div>
+    </Container>
   )
 }
 
