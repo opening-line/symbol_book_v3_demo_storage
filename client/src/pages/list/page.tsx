@@ -30,7 +30,6 @@ const ImageGallery: React.FC = () => {
   const idList = useMemo(() => {
     const start = pageIndex * perPage
     const end = start + perPage
-
     return Array.from({ length: end - start }, (_, index) => start + index)
   }, [pageIndex, perPage])
 
