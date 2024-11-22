@@ -67,7 +67,7 @@ const ImageGallery: React.FC = () => {
         {idList.map((id) => (
           <div
             key={id}
-            className='w-full rounded shadow-lg cursor-pointer'
+            className='w-full rounded shadow-lg cursor-pointer overflow-hidden'
             onClick={() => handleImageClick(id)}
           >
             <ImageListItem fileId={id} />

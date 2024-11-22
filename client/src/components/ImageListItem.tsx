@@ -1,4 +1,5 @@
 import React from "react"
+import { Button } from "@headlessui/react"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../hooks/useGetImageFromBlockchain.ts"
 
@@ -25,11 +26,17 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId }) => {
       ) : (
         <>
           {data && data.payload && data.mime ? (
-            <img
-              src={`data:${data.mime};base64,${data.payload}`}
-              alt='Preview'
-              className='h-full w-full object-contain'
-            />
+            <Button as={React.Fragment}>
+              {({ hover }) => (
+                <img
+                  src={`data:${data.mime};base64,${data.payload}`}
+                  alt='Preview'
+                  className={`h-full w-full object-contain transition-transform duration-300 ${
+                    hover ? "scale-110" : "scale-100"
+                  }`}
+                />
+              )}
+            </Button>
           ) : (
             <img
               src='/no_image.svg'
