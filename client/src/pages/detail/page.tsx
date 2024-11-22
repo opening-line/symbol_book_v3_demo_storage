@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
 import Container from "../../components/Container.tsx";
+import Button from "../../components/Button.tsx";
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
@@ -66,12 +67,11 @@ const Detail = () => {
         )}
       </div>
       <div>
-        <button
+        <Button
           onClick={() => window.history.back()}
-          className='bg-blue-500 text-white py-2 px-4 rounded'
         >
           戻る
-        </button>
+        </Button>
       </div>
     </Container>
   )

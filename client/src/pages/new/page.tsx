@@ -14,6 +14,7 @@ import {
   combineLittleEndianHexNumbers,
 } from "../../utils/hexUtils.ts"
 import Container from "../../components/Container.tsx";
+import Button from "../../components/Button.tsx";
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -168,22 +169,21 @@ const ImageCreatePage: React.FC = () => {
           </div>
         </div>
 
-        <button
+        <Button
           type='submit'
-          className={`px-4 py-2 rounded ${!selectedFile ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700 text-white"}`}
           disabled={!selectedFile}
+          color='blue'
         >
           アップロード
-        </button>
+        </Button>
       </form>
 
       <div>
-        <button
+        <Button
           onClick={() => navigate("/list")}
-          className='px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded'
         >
           一覧へ戻る
-        </button>
+        </Button>
       </div>
     </Container>
   )
