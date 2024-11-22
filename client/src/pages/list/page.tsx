@@ -63,9 +63,16 @@ const ImageGallery: React.FC = () => {
           <option value={50}>50</option>
         </select>
       </div>
+      <div className='mb-4'>
+        <Pagination
+          onPageChange={onPageChange}
+          totalPages={1000}
+          currentPage={pageIndex}
+        />
+      </div>
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4'>
         {idList.map((id) => (
-          <ImageListItem key={id} fileId={id} onClick={handleImageClick} />
+          <ImageListItem key={id} fileId={id} onClick={handleImageClick}/>
         ))}
       </div>
       <div>
