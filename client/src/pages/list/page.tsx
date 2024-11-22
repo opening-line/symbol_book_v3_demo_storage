@@ -67,12 +67,10 @@ const ImageGallery: React.FC = () => {
         {idList.map((id) => (
           <div
             key={id}
-            className='w-full rounded overflow-hidden shadow-lg cursor-pointer'
+            className='w-full rounded shadow-lg cursor-pointer'
             onClick={() => handleImageClick(id)}
           >
-            <div>
-              <ImageListItem fileId={id} />
-            </div>
+            <ImageListItem fileId={id} />
             <div className='px-6 py-4'>
               <div className='font-bold text-xl mb-2'>{id}</div>
             </div>
