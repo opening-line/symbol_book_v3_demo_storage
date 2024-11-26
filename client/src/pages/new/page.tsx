@@ -7,7 +7,7 @@ import React, {
   FormEvent,
   useEffect,
 } from "react"
-import useUploadToBlockchain from "../../hooks/uploadToBlockchain.ts"
+import useUploadToBlockchain from "../../hooks/useUploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
 import {
   numberToLittleEndianHexString,
@@ -33,7 +33,7 @@ const ImageCreatePage: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-  const uploadToBlockchain = useUploadToBlockchain()
+  const { upload, uploading, result, error } = useUploadToBlockchain()
 
   useEffect(() => {
     if (!selectedFile) {
@@ -141,7 +141,7 @@ const ImageCreatePage: React.FC = () => {
 
     console.log(chunks)
 
-    uploadToBlockchain(chunks)
+    upload(chunks)
   }
 
   return (
