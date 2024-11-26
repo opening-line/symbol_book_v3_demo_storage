@@ -203,8 +203,8 @@ const ImageCreatePage: React.FC = () => {
           <div>
             <h1>プレビュー</h1>
             <div className='h-[200px] border'>
-              {previewUrl && (
-                <img src={previewUrl} alt='Preview' className='h-full' />
+            {previewUrl && (
+                <img src={previewUrl} alt='Preview' className='h-full'/>
               )}
             </div>
           </div>
