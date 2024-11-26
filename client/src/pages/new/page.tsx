@@ -267,7 +267,9 @@ const ImageCreatePage: React.FC = () => {
                 <Description></Description>
                 <p>
                   <span className='block'>トランザクションハッシュ</span>
-                  <span className='break-all'>{result && result.hash}</span>
+                  {result && result.hashList.map((hash) => {
+                    return <span className='block break-all'>{hash}</span>
+                  })}
                 </p>
               </>
             )}

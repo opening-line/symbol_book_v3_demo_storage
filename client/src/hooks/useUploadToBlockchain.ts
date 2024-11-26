@@ -5,7 +5,7 @@ import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { useState } from "react"
 
 type Data = {
-  hash: string
+  hashList: string[]
   res: any
 }
 
@@ -68,7 +68,7 @@ export default function useUploadToBlockchain() {
         .then((res) => res.json())
         .then((res: any) => {
           return {
-            hash,
+            hashList: [hash],
             res,
           }
         })
