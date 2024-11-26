@@ -6,7 +6,7 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children }) => {
   return (
-    <div className='container mx-auto text-center pt-4 pb-10'>{children}</div>
+    <div className='container mx-auto pt-4 pb-10'>{children}</div>
   )
 }
 
