@@ -3,6 +3,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
+import TitleSection from "../../components/TitleSection.tsx";
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
@@ -11,7 +12,7 @@ const Detail = () => {
 
   return (
     <Container>
-      <h1 className='text-2xl font-bold mb-8'>画像詳細</h1>
+      <TitleSection>画像詳細</TitleSection>
 
       <p className='mb-2'>
         <span className='text-lg mr-2'>ファイルID:</span>

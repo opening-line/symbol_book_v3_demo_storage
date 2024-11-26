@@ -17,6 +17,7 @@ import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
 import useGetLatestFileIndex from "../../hooks/useGetLatestFileIndex.ts"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
+import TitleSection from "../../components/TitleSection.tsx"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -145,7 +146,7 @@ const ImageCreatePage: React.FC = () => {
 
   return (
     <Container>
-      <h1 className='text-2xl font-bold mb-8'>新規アップロード</h1>
+      <TitleSection>新規アップロード</TitleSection>
       {loadingFileIndex ? (
         <div className='flex items-center justify-start'>
           Loading

@@ -4,6 +4,7 @@ import Pagination from "../../components/pagination.tsx"
 import ImageListItem from "../../components/ImageListItem.tsx"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
+import TitleSection from "../../components/TitleSection.tsx";
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
@@ -41,7 +42,7 @@ const ImageGallery: React.FC = () => {
 
   return (
     <Container>
-      <h1 className='text-2xl font-bold mb-8'>画像一覧</h1>
+      <TitleSection>画像一覧</TitleSection>
       <div className='mb-4'>
         <Button onClick={handleNewButtonClick} color='blue'>
           新規作成
