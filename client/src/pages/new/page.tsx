@@ -200,8 +200,23 @@ const ImageCreatePage: React.FC = () => {
             </div>
           )}
 
-          <div>
-            <h1>プレビュー</h1>
+          <div className='mb-4'>
+            <h1 className='text-lg'>情報</h1>
+            <div className=''>
+              ファイル名 {selectedFile && `${selectedFile.name}`}
+            </div>
+            <div className=''>
+              データサイズ {imageHex && `${imageHex.length / 2} bytes`}
+            </div>
+            <div className=''>
+              内部トランザクション数 {imageHex && `約 ${Math.ceil(imageHex.length / 2048)} 個`}
+            </div>
+            <div className=''>
+              トランザクション数 {imageHex && `約 ${Math.ceil(imageHex.length / 204800)} 個`}
+            </div>
+          </div>
+
+          <div className='mb-4'>
             <h1 className='text-lg'>プレビュー</h1>
             <div className='h-[200px] border'>
             {previewUrl && (
