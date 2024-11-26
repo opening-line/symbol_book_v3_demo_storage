@@ -187,7 +187,7 @@ const ImageCreatePage: React.FC = () => {
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
-              style={{cursor: "pointer"}}
+              style={{ cursor: "pointer" }}
             >
               <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
               <input
@@ -195,7 +195,7 @@ const ImageCreatePage: React.FC = () => {
                 onChange={handleInputChange}
                 accept='image/*'
                 ref={fileInputRef}
-                style={{display: "none"}}
+                style={{ display: "none" }}
               />
             </div>
           )}
@@ -209,18 +209,20 @@ const ImageCreatePage: React.FC = () => {
               データサイズ {imageHex && `${imageHex.length / 2} bytes`}
             </div>
             <div className=''>
-              内部トランザクション数 {imageHex && `約 ${Math.ceil(imageHex.length / 2048)} 個`}
+              内部トランザクション数{" "}
+              {imageHex && `約 ${Math.ceil(imageHex.length / 2048)} 個`}
             </div>
             <div className=''>
-              トランザクション数 {imageHex && `約 ${Math.ceil(imageHex.length / 204800)} 個`}
+              トランザクション数{" "}
+              {imageHex && `約 ${Math.ceil(imageHex.length / 204800)} 個`}
             </div>
           </div>
 
           <div className='mb-4'>
             <h1 className='text-lg'>プレビュー</h1>
             <div className='h-[200px] border'>
-            {previewUrl && (
-                <img src={previewUrl} alt='Preview' className='h-full'/>
+              {previewUrl && (
+                <img src={previewUrl} alt='Preview' className='h-full' />
               )}
             </div>
           </div>
@@ -240,7 +242,7 @@ const ImageCreatePage: React.FC = () => {
             {uploading ? (
               <>
                 <div className='flex justify-center items-center'>
-                  <ArrowPathIcon className='w-8 h-8 rotate'/>
+                  <ArrowPathIcon className='w-8 h-8 rotate' />
                   <span className='inline-block ml-2'>Uploading...</span>
                 </div>
               </>
@@ -283,9 +285,10 @@ const ImageCreatePage: React.FC = () => {
                 <Description></Description>
                 <p>
                   <span className='block'>トランザクションハッシュ</span>
-                  {result && result.hashList.map((hash) => {
-                    return <span className='block break-all'>{hash}</span>
-                  })}
+                  {result &&
+                    result.hashList.map((hash) => {
+                      return <span className='block break-all'>{hash}</span>
+                    })}
                 </p>
               </>
             )}

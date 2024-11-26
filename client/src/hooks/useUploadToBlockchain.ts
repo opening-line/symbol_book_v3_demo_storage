@@ -53,7 +53,7 @@ export default function useUploadToBlockchain() {
         const transaction = facade.transactionFactory.create({
           type: "aggregate_complete_transaction_v2",
           signerPublicKey,
-          fee: 10000000n,   // TODO adjust fee
+          fee: 10000000n, // TODO adjust fee
           deadline,
           transactions: metadataTransactions,
           transactionsHash,
@@ -66,12 +66,14 @@ export default function useUploadToBlockchain() {
         )
         const hash = facade.hashTransaction(transaction).toString()
 
-        const response = await fetch(new URL("/transactions", Config.NODE_URL), {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: jsonPayload,
-        })
-          .then((res) => res.json())
+        const response = await fetch(
+          new URL("/transactions", Config.NODE_URL),
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: jsonPayload,
+          },
+        ).then((res) => res.json())
 
         hashList.push(hash)
         responseList.push(response)
