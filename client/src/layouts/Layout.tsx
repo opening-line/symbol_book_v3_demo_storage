@@ -6,10 +6,10 @@ import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 
 const Layout: React.FC = () => {
   const navigate = useNavigate()
-  const [_a, _b, deletePrivateKey] = usePrivateKeyStorage()
+  const [_, setPrivateKey] = usePrivateKeyStorage()
 
   const handleLogout = () => {
-    deletePrivateKey()
+    setPrivateKey("")
     navigate("/")
   }
 

@@ -23,15 +23,6 @@ function usePrivateKeyStorage() {
     }
   }
 
-  const deleteValue = () => {
-    try {
-      window.localStorage.removeItem(uniqueKey)
-      setStoredValue(null)
-    } catch (error) {
-      throw new Error("Failed to delete item from localStorage")
-    }
-  }
-
   useEffect(() => {
     try {
       const storedValue = window.localStorage.getItem(uniqueKey)
@@ -45,7 +36,7 @@ function usePrivateKeyStorage() {
     }
   }, [uniqueKey])
 
-  return [storedValue, setValue, deleteValue] as const
+  return [storedValue, setValue] as const
 }
 
 export default usePrivateKeyStorage
