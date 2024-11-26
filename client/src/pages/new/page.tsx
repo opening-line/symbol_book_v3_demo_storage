@@ -10,6 +10,14 @@ import React, {
 import useUploadToBlockchain from "../../hooks/useUploadToBlockchain.ts"
 import { useNavigate } from "react-router-dom"
 import {
+  Description,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  DialogBackdrop,
+} from "@headlessui/react"
+import { ArrowPathIcon } from "@heroicons/react/24/solid"
+import {
   numberToLittleEndianHexString,
   combineLittleEndianHexNumbers,
 } from "../../utils/hexUtils.ts"
@@ -30,6 +38,7 @@ const ImageCreatePage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [imageHex, setImageHex] = useState<string | null>(null)
+  let [isOpen, setIsOpen] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -139,9 +148,18 @@ const ImageCreatePage: React.FC = () => {
       },
     )
 
-    console.log(chunks)
+    upload(chunks).then(() => {
+      setIsOpen(true)
+    })
+  }
 
-    upload(chunks)
+  const handleDialogClose = () => {
+    if (fileIndexData?.nextFileIndex) {
+      const pageIndex = Math.floor(fileIndexData.nextFileIndex / 10)
+      navigate(`/list/${pageIndex}`)
+    } else {
+      navigate("/list")
+    }
   }
 
   return (
@@ -159,22 +177,28 @@ const ImageCreatePage: React.FC = () => {
         </>
       ) : (
         <form onSubmit={handleSubmit} className='mb-4'>
-          <div
-            onClick={handleUploadClick}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
-            style={{ cursor: "pointer" }}
-          >
-            <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
-            <input
-              type='file'
-              onChange={handleInputChange}
-              accept='image/*'
-              ref={fileInputRef}
-              style={{ display: "none" }}
-            />
-          </div>
+          {uploading ? (
+            <div className='border-2 border-dashed border-gray-300 p-6 text-center mb-4 cursor-wait text-gray-300'>
+              <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+            </div>
+          ) : (
+            <div
+              onClick={handleUploadClick}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
+              style={{ cursor: "pointer" }}
+            >
+              <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+              <input
+                type='file'
+                onChange={handleInputChange}
+                accept='image/*'
+                ref={fileInputRef}
+                style={{ display: "none" }}
+              />
+            </div>
+          )}
 
           <div>
             <h1>プレビュー</h1>
@@ -192,8 +216,21 @@ const ImageCreatePage: React.FC = () => {
             </div>
           </div>
 
-          <Button type='submit' disabled={!selectedFile} color='blue'>
-            アップロード
+          <Button
+            type='submit'
+            disabled={!selectedFile || uploading}
+            color='blue'
+          >
+            {uploading ? (
+              <>
+                <div className='flex justify-center items-center'>
+                  <ArrowPathIcon className='w-8 h-8 rotate' />
+                  <span className='inline-block ml-2'>Uploading...</span>
+                </div>
+              </>
+            ) : (
+              "アップロード"
+            )}
           </Button>
         </form>
       )}
@@ -201,6 +238,24 @@ const ImageCreatePage: React.FC = () => {
       <div>
         <Button onClick={() => navigate("/list")}>一覧へ戻る</Button>
       </div>
+
+      <Dialog
+        open={isOpen}
+        onClose={() => {}}
+        transition
+        className='fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0'
+      >
+        <DialogBackdrop className='fixed inset-0 bg-black/30' />
+        <div className='fixed inset-0 flex w-screen items-center justify-center p-4'>
+          <DialogPanel className='max-w-lg space-y-4 border bg-white p-12'>
+            <DialogTitle className='font-bold'>完了</DialogTitle>
+            <Description>アップロードが完了しました</Description>
+            <div className='flex gap-4'>
+              <Button onClick={handleDialogClose}>一覧へ戻る</Button>
+            </div>
+          </DialogPanel>
+        </div>
+      </Dialog>
     </Container>
   )
 }

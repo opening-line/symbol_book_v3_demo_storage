@@ -12,7 +12,7 @@ type Data = {
 export default function useUploadToBlockchain() {
   const [privateKey] = usePrivateKeyStorage()
   const [result, setResult] = useState<Data | null>(null)
-  const [uploading, setUploading] = useState<boolean>(true)
+  const [uploading, setUploading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   async function uploadToBlockchain(chunks: { key: string; chunk: string }[]) {
@@ -72,6 +72,8 @@ export default function useUploadToBlockchain() {
             res,
           }
         })
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       setResult(r)
     } catch (error: any) {
