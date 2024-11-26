@@ -4,7 +4,7 @@ import Pagination from "../../components/pagination.tsx"
 import ImageListItem from "../../components/ImageListItem.tsx"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
-import TitleSection from "../../components/TitleSection.tsx";
+import TitleSection from "../../components/TitleSection.tsx"
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()

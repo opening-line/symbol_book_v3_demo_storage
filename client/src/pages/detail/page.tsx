@@ -3,7 +3,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
-import TitleSection from "../../components/TitleSection.tsx";
+import TitleSection from "../../components/TitleSection.tsx"
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
