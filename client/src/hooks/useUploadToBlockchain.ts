@@ -76,8 +76,8 @@ export default function useUploadToBlockchain() {
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       setResult(r)
-    } catch (error: any) {
-      setError(error)
+    } catch (e: any) {
+      setError(e.message)
     } finally {
       setUploading(false)
     }

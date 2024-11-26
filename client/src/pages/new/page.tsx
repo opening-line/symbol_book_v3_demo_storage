@@ -256,7 +256,7 @@ const ImageCreatePage: React.FC = () => {
                 <Description></Description>
                 <p>
                   <span className='block'>エラー内容</span>
-                  <span className='break-all'>{JSON.stringify(error)}</span>
+                  <span className='break-all'>{error}</span>
                 </p>
               </>
             ) : (
