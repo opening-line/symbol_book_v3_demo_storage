@@ -250,7 +250,9 @@ const ImageCreatePage: React.FC = () => {
           <DialogPanel className='max-w-lg space-y-4 border bg-white p-12 rounded-md'>
             {error ? (
               <>
-                <DialogTitle className='font-bold text-red-500'>エラーが発生しました</DialogTitle>
+                <DialogTitle className='font-bold text-red-500'>
+                  エラーが発生しました
+                </DialogTitle>
                 <Description></Description>
                 <p>
                   <span className='block'>エラー内容</span>
@@ -259,7 +261,9 @@ const ImageCreatePage: React.FC = () => {
               </>
             ) : (
               <>
-                <DialogTitle className='font-bold'>トランザクション送信完了</DialogTitle>
+                <DialogTitle className='font-bold'>
+                  トランザクション送信完了
+                </DialogTitle>
                 <Description></Description>
                 <p>
                   <span className='block'>トランザクションハッシュ</span>
