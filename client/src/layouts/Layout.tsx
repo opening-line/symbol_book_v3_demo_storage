@@ -19,8 +19,11 @@ const Layout: React.FC = () => {
   }, [privateKey])
 
   const handleLogout = () => {
-    setPrivateKey("")
-    navigate("/")
+    const confirmed = window.confirm("本当にログアウトしますか？");
+    if (confirmed) {
+      setPrivateKey("")
+      navigate("/")
+    }
   }
 
   return (
