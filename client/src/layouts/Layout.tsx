@@ -1,11 +1,22 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { Outlet, Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
+import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
+import { PrivateKey } from "symbol-sdk"
+import { Config } from "../utils/config.ts"
 
 const Layout: React.FC = () => {
   const navigate = useNavigate()
-  const [_, setPrivateKey] = usePrivateKeyStorage()
+  const [privateKey, setPrivateKey] = usePrivateKeyStorage()
+
+  const address = useMemo(() => {
+    if (!privateKey) return ""
+    const account = new KeyPair(new PrivateKey(privateKey))
+    const facade = new SymbolFacade(Config.NETWORK)
+    return facade.network.publicKeyToAddress(account.publicKey).toString()
+  }, [privateKey])
 
   const handleLogout = () => {
     setPrivateKey("")
@@ -15,7 +26,7 @@ const Layout: React.FC = () => {
   return (
     <div>
       <header>
-        <Navbar handleLogout={handleLogout} />
+        <Navbar handleLogout={handleLogout} address={address} />
       </header>
       <main>
         <Outlet />
@@ -25,7 +36,12 @@ const Layout: React.FC = () => {
   )
 }
 
-function Navbar({ handleLogout }: { handleLogout: () => void }) {
+type NavbarProps = {
+  handleLogout: () => void
+  address: string
+}
+
+function Navbar({ handleLogout, address }: NavbarProps) {
   return (
     <nav className='bg-gray-800 text-white px-4 py-2 flex items-center justify-between'>
       <div className='flex items-center space-x-6'>
@@ -44,12 +60,29 @@ function Navbar({ handleLogout }: { handleLogout: () => void }) {
         </div>
       </div>
 
-      <button
-        onClick={handleLogout}
-        className='bg-red-500 hover:bg-red-400 px-3 py-2 rounded-md text-sm font-medium'
-      >
-        ログアウト
-      </button>
+      <Menu as='div' className='relative inline-block text-left'>
+        <MenuButton className='flex flex-col items-center justify-center w-10 h-10 bg-gray-700 text-white rounded-full text-xs font-bold'>
+          <span>{address.slice(0, 4)}</span>
+          <span>{address.slice(-4)}</span>
+        </MenuButton>
+
+        <MenuItems className='absolute right-0 mt-2 w-40 bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+          <div className='py-1'>
+            <MenuItem>
+              {({ focus }) => (
+                <button
+                  onClick={handleLogout}
+                  className={`${
+                    focus ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                  } block px-4 py-2 text-sm w-full text-left`}
+                >
+                  ログアウト
+                </button>
+              )}
+            </MenuItem>
+          </div>
+        </MenuItems>
+      </Menu>
     </nav>
   )
 }
