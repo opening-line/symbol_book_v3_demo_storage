@@ -174,7 +174,7 @@ const ImageCreatePage: React.FC = () => {
               {imageHex && (
                 <>
                   <span>{`約 ${Math.ceil(imageHex.length / 2048)} 個`}</span>
-                  {Math.ceil(imageHex.length / 2048) > 0 && (
+                  {Math.ceil(imageHex.length / 2048) > 100 && (
                     <>
                       <br />
                       <span className='text-red-500'>
