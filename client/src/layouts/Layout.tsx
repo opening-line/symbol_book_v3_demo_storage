@@ -1,7 +1,13 @@
 import React, { useMemo } from "react"
 import { Outlet, Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { Button, Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react"
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+} from "@headlessui/react"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey } from "symbol-sdk"
@@ -19,7 +25,7 @@ const Layout: React.FC = () => {
   }, [privateKey])
 
   const handleLogout = () => {
-    const confirmed = window.confirm("本当にログアウトしますか？");
+    const confirmed = window.confirm("本当にログアウトしますか？")
     if (confirmed) {
       setPrivateKey("")
       navigate("/")
