@@ -171,11 +171,19 @@ const ImageCreatePage: React.FC = () => {
             </div>
             <div className=''>
               内部トランザクション数{" "}
-              {imageHex && `約 ${Math.ceil(imageHex.length / 2048)} 個`}
-            </div>
-            <div className=''>
-              トランザクション数{" "}
-              {imageHex && `約 ${Math.ceil(imageHex.length / 204800)} 個`}
+              {imageHex && (
+                <>
+                  <span>{`約 ${Math.ceil(imageHex.length / 2048)} 個`}</span>
+                  {Math.ceil(imageHex.length / 2048) > 0 && (
+                    <>
+                      <br />
+                      <span className='text-red-500'>
+                        内部トランザクション数は100までしか対応していません。続行することはできますが、エラーになる可能性があります。
+                      </span>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
