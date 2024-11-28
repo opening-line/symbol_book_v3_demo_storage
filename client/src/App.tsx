@@ -8,8 +8,6 @@ import MyPage from "./pages/mypage/page.tsx"
 import New from "./pages/new/page.tsx"
 import List from "./pages/list/page.tsx"
 import Detail from "./pages/detail/page.tsx"
-import About from "./pages/AboutPage.tsx"
-import Example from "./pages/ExamplePage.tsx"
 import usePrivateKeyStorage from "./hooks/usePrivateKeyStorage.ts"
 import React, { useMemo } from "react"
 import isValidPrivateKey from "./utils/isValidPrivateKey.ts"
@@ -28,8 +26,6 @@ const AuthRouter: React.FC = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        <Route path='about' element={<About />} />
-        <Route path='example' element={<Example />} />
         <Route path='mypage' element={<MyPage />} />
         <Route path='new' element={<New />} />
         <Route path='list' element={<Navigate to='0' />} />
