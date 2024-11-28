@@ -123,7 +123,7 @@ const ImageCreatePage: React.FC = () => {
 
     const fileIndex = fileIndexData?.nextFileIndex
 
-    if (!fileIndex) {
+    if (fileIndex === undefined || fileIndex === null) {
       throw new Error("")
     }
 
