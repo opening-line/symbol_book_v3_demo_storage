@@ -1,4 +1,7 @@
-import {combineLittleEndianHexNumbers, numberToLittleEndianHexString} from "./hexUtils.ts";
+import {
+  combineLittleEndianHexNumbers,
+  numberToLittleEndianHexString,
+} from "./hexUtils.ts"
 
 const splitChunks = (hex: string, chunkSize = 2048) => {
   const chunks = []
@@ -8,8 +11,12 @@ const splitChunks = (hex: string, chunkSize = 2048) => {
   return chunks
 }
 
-function create(file: File, imageHex: string, fileIndex: number): Array<{
-  key: string,
+function create(
+  file: File,
+  imageHex: string,
+  fileIndex: number,
+): Array<{
+  key: string
   chunk: string
 }> {
   const metadataObject = {
@@ -18,9 +25,7 @@ function create(file: File, imageHex: string, fileIndex: number): Array<{
   }
 
   const encoder = new TextEncoder()
-  const metadataHex = Array.from(
-    encoder.encode(JSON.stringify(metadataObject)),
-  )
+  const metadataHex = Array.from(encoder.encode(JSON.stringify(metadataObject)))
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("")
 
@@ -36,14 +41,12 @@ function create(file: File, imageHex: string, fileIndex: number): Array<{
     metadataChunks.length + 1,
   )
   const header = `${headerVersion}${headerReserve}${headerLength}${headerMetadataOffset}${headerPayloadOffset}`
-  return [header, ...metadataChunks, ...imageChunks].map(
-    (chunk, index) => {
-      return {
-        key: combineLittleEndianHexNumbers(fileIndex, index),
-        chunk,
-      }
-    },
-  )
+  return [header, ...metadataChunks, ...imageChunks].map((chunk, index) => {
+    return {
+      key: combineLittleEndianHexNumbers(fileIndex, index),
+      chunk,
+    }
+  })
 }
 
 export default create

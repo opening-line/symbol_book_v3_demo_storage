@@ -31,7 +31,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           <div className='h-full flex items-center justify-center'>
             <p>
               Loading
-              <EllipsisHorizontalIcon className='h-5 w-5 inline'/>
+              <EllipsisHorizontalIcon className='h-5 w-5 inline' />
             </p>
           </div>
         ) : error ? (
@@ -42,7 +42,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           <>
             {data && data.payload && data.mime ? (
               <Button as={React.Fragment}>
-                {({hover}) => (
+                {({ hover }) => (
                   <img
                     src={`data:${data.mime};base64,${data.payload}`}
                     alt='Preview'
@@ -71,7 +71,9 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
         {data && data.meta && (
           <>
             <span className='inline-block'>{data.meta.fileName}</span>
-            <span className='inline-block text-sm text-gray-600'>{new Date(data.meta.timestamp).toLocaleString()}</span>
+            <span className='inline-block text-sm text-gray-600'>
+              {new Date(data.meta.timestamp).toLocaleString()}
+            </span>
           </>
         )}
       </div>

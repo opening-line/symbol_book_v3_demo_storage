@@ -23,7 +23,7 @@ import useGetLatestFileIndex from "../../hooks/useGetLatestFileIndex.ts"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import TitleSection from "../../components/TitleSection.tsx"
 import { Config } from "../../utils/config.ts"
-import fileToMetadata from "../../utils/fileToMetadata.ts";
+import fileToMetadata from "../../utils/fileToMetadata.ts"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
