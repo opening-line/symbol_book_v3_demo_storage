@@ -86,14 +86,14 @@ function Navbar({ handleLogout, address }: NavbarProps) {
             </MenuItem>
             <MenuItem>
               {({ focus }) => (
-                <button
+                <Button
                   onClick={handleLogout}
                   className={`${
                     focus ? "bg-gray-100 text-gray-900" : "text-gray-700"
                   } block px-4 py-2 text-sm w-full text-left`}
                 >
                   ログアウト
-                </button>
+                </Button>
               )}
             </MenuItem>
           </div>
