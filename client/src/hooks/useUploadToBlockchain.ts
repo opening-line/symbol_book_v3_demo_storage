@@ -5,8 +5,8 @@ import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { useState } from "react"
 
 type Data = {
-  hashList: string[]
-  responseList: any[]
+  hash: string
+  res: any
 }
 
 export default function useUploadToBlockchain() {
@@ -29,59 +29,49 @@ export default function useUploadToBlockchain() {
       const targetAddress = facade.network.publicKeyToAddress(account.publicKey)
       const signerPublicKey = account.publicKey.toString()
 
-      const hashList = []
-      const responseList = []
-
-      for (let i = 0; i < chunks.length; i += 100) {
-        const chunkSlice = chunks.slice(i, i + 100)
-
-        const metadataTransactions = chunkSlice.map(({ key, chunk }) => {
-          const chunkUint8 = utils.hexToUint8(chunk)
-          return facade.transactionFactory.createEmbedded({
-            type: "account_metadata_transaction_v1",
-            signerPublicKey,
-            targetAddress,
-            scopedMetadataKey: BigInt(`0x${key}`),
-            valueSizeDelta: chunkUint8.length,
-            value: metadataUpdateValue(new Uint8Array(), chunkUint8),
-          })
-        })
-
-        const transactionsHash =
-          SymbolFacade.hashEmbeddedTransactions(metadataTransactions)
-
-        const transaction = facade.transactionFactory.create({
-          type: "aggregate_complete_transaction_v2",
+      const metadataTransactions = chunks.map(({ key, chunk }) => {
+        const chunkUint8 = utils.hexToUint8(chunk)
+        return facade.transactionFactory.createEmbedded({
+          type: "account_metadata_transaction_v1",
           signerPublicKey,
-          fee: 10000000n, // TODO adjust fee
-          deadline,
-          transactions: metadataTransactions,
-          transactionsHash,
+          targetAddress,
+          scopedMetadataKey: BigInt(`0x${key}`),
+          valueSizeDelta: chunkUint8.length,
+          value: metadataUpdateValue(new Uint8Array(), chunkUint8),
         })
+      })
 
-        const signature = facade.signTransaction(account, transaction)
-        const jsonPayload = facade.transactionFactory.static.attachSignature(
-          transaction,
-          signature,
-        )
-        const hash = facade.hashTransaction(transaction).toString()
+      const transactionsHash =
+        SymbolFacade.hashEmbeddedTransactions(metadataTransactions)
 
-        const response = await fetch(
-          new URL("/transactions", Config.NODE_URL),
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: jsonPayload,
-          },
-        ).then((res) => res.json())
+      const transaction = facade.transactionFactory.create({
+        type: "aggregate_complete_transaction_v2",
+        signerPublicKey,
+        fee: 10000000n, // TODO adjust fee
+        deadline,
+        transactions: metadataTransactions,
+        transactionsHash,
+      })
 
-        hashList.push(hash)
-        responseList.push(response)
-      }
+      const signature = facade.signTransaction(account, transaction)
+      const jsonPayload = facade.transactionFactory.static.attachSignature(
+        transaction,
+        signature,
+      )
+      const hash = facade.hashTransaction(transaction).toString()
+
+      const response = await fetch(
+        new URL("/transactions", Config.NODE_URL),
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: jsonPayload,
+        },
+      ).then((res) => res.json())
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      setResult({ hashList, responseList })
+      setResult({ hash, res: response })
     } catch (e: any) {
       setError(e.message)
     } finally {
