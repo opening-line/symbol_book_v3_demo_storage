@@ -1,4 +1,9 @@
-import { KeyPair, SymbolFacade, metadataUpdateValue, models } from "symbol-sdk/symbol"
+import {
+  KeyPair,
+  SymbolFacade,
+  metadataUpdateValue,
+  models,
+} from "symbol-sdk/symbol"
 import { PrivateKey, utils } from "symbol-sdk"
 import { Config } from "../utils/config.ts"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
@@ -52,7 +57,9 @@ export default function useUploadToBlockchain() {
         transactionsHash,
       })
 
-      transaction.fee = new models.Amount(BigInt(transaction.serialize().length * 100))
+      transaction.fee = new models.Amount(
+        BigInt(transaction.serialize().length * 100),
+      )
 
       const signature = facade.signTransaction(account, transaction)
       const jsonPayload = facade.transactionFactory.static.attachSignature(
@@ -61,14 +68,11 @@ export default function useUploadToBlockchain() {
       )
       const hash = facade.hashTransaction(transaction).toString()
 
-      const response = await fetch(
-        new URL("/transactions", Config.NODE_URL),
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: jsonPayload,
-        },
-      ).then((res) => res.json())
+      const response = await fetch(new URL("/transactions", Config.NODE_URL), {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: jsonPayload,
+      }).then((res) => res.json())
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
