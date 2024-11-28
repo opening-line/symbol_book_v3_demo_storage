@@ -5,6 +5,7 @@ import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { MetadataResponse } from "../types/BlockchainAPI.ts"
 import { combineLittleEndianHexNumbers } from "../utils/hexUtils.ts"
 import { useEffect, useState } from "react"
+import { findFirstUnusedIndex } from "../utils/asyncBinarySearch.ts"
 
 type Data = {
   latestFileIndex: number
@@ -32,28 +33,13 @@ export default function useGetLatestFileIndex() {
         const facade = new SymbolFacade(Config.NETWORK)
         const address = facade.network.publicKeyToAddress(account.publicKey)
 
-        let low = 0
-        let high = 1
-
-        // まずは範囲を動的に見つける
-        while (await existsHeaderById(controller.signal, address, high)) {
-          low = high
-          high *= 2 // 倍にすることで範囲を広げる
-        }
-
-        // 二分探索で存在しない最初のfileIdを見つける
-        while (low < high) {
-          const mid = Math.floor((low + high) / 2)
-          if (await existsHeaderById(controller.signal, address, mid)) {
-            low = mid + 1
-          } else {
-            high = mid
-          }
-        }
+        const nextFileIndex = await findFirstUnusedIndex((index: number) => {
+          return existsHeaderById(controller.signal, address, index)
+        })
 
         setData({
-          latestFileIndex: low - 1,
-          nextFileIndex: low,
+          latestFileIndex: nextFileIndex - 1,
+          nextFileIndex,
         })
       } catch (err: any) {
         if (err.name !== "AbortError") {
