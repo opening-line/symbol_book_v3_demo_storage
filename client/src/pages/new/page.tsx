@@ -286,7 +286,7 @@ const ImageCreatePage: React.FC = () => {
                 <Description></Description>
                 <p>
                   <span className='block'>トランザクションハッシュ</span>
-                  {result && <a href={`${Config.NODE_URL}/transactionStatus/${result.hash}`} target='_blank' rel='noreferrer noopener' className='block break-all'>{result.hash}</a>}
+                  {result && <a href={`${Config.NODE_URL}/transactionStatus/${result.hash}`} target='_blank' rel='noreferrer noopener' className='block break-all underline hover:no-underline'>{result.hash}</a>}
                 </p>
               </>
             )}
