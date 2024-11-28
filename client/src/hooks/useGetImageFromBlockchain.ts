@@ -89,12 +89,13 @@ export default function useGetImageFromBlockchain(fileId?: string) {
           mime: fileMime,
           payload: base64Payload,
         })
+
+        setLoading(false)
       } catch (err: any) {
         if (err.name !== "AbortError") {
           setError(err.message)
+          setLoading(false)
         }
-      } finally {
-        setLoading(false)
       }
     }
 
