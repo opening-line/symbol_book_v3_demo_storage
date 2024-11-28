@@ -15,13 +15,14 @@ function create(
   file: File,
   imageHex: string,
   fileIndex: number,
+  timestamp: number,
 ): Array<{
   key: string
   chunk: string
 }> {
   const metadataObject = {
     fileName: file.name,
-    timestamp: Date.now(),
+    timestamp,
   }
 
   const encoder = new TextEncoder()

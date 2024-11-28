@@ -104,7 +104,7 @@ const ImageCreatePage: React.FC = () => {
       throw new Error("")
     }
 
-    const chunks = fileToMetadata(selectedFile, imageHex, fileIndex)
+    const chunks = fileToMetadata(selectedFile, imageHex, fileIndex, Date.now())
 
     upload(chunks).then(() => {
       setIsOpen(true)
