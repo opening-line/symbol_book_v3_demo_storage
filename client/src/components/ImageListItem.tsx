@@ -23,7 +23,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
 
   return (
     <div
-      className={`w-full rounded shadow-lg ${!disabled && "cursor-pointer"}`}
+      className={`relative w-full rounded shadow-lg ${!disabled && "cursor-pointer"}`}
       onClick={handleClick}
     >
       <div className='h-[200px] border overflow-hidden'>
@@ -31,7 +31,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           <div className='h-full flex items-center justify-center'>
             <p>
               Loading
-              <EllipsisHorizontalIcon className='h-5 w-5 inline' />
+              <EllipsisHorizontalIcon className='h-5 w-5 inline'/>
             </p>
           </div>
         ) : error ? (
@@ -42,7 +42,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           <>
             {data && data.payload && data.mime ? (
               <Button as={React.Fragment}>
-                {({ hover }) => (
+                {({hover}) => (
                   <img
                     src={`data:${data.mime};base64,${data.payload}`}
                     alt='Preview'
@@ -62,8 +62,18 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           </>
         )}
       </div>
+      <div className='absolute top-2 left-2'>
+        <div className='px-2 py-1 rounded-md bg-gray-600/80 text-white'>
+          {fileId}
+        </div>
+      </div>
       <div className='px-6 py-4'>
-        <div className='font-bold text-xl mb-2'>{fileId}</div>
+        {data && data.meta && (
+          <>
+            <span className='inline-block'>{data.meta.fileName}</span>
+            <span className='inline-block text-sm text-gray-600'>{new Date(data.meta.timestamp).toLocaleString()}</span>
+          </>
+        )}
       </div>
     </div>
   )
