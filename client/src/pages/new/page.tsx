@@ -37,6 +37,7 @@ const ImageCreatePage: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [imageHex, setImageHex] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [validationError, setValidationError] = useState<string | null>(null)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -92,16 +93,18 @@ const ImageCreatePage: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setValidationError(null)
 
     if (!selectedFile || !imageHex) {
-      alert("ファイルを選択してください")
+      setValidationError("ファイルを選択してください")
       return
     }
 
     const fileIndex = fileIndexData?.nextFileIndex
 
     if (fileIndex === undefined || fileIndex === null) {
-      throw new Error("")
+      setValidationError("fileIndexが見つけられませんでした")
+      return
     }
 
     const chunks = fileToMetadata(selectedFile, imageHex, fileIndex, Date.now())
@@ -192,22 +195,27 @@ const ImageCreatePage: React.FC = () => {
             </div>
           </div>
 
-          <Button
-            type='submit'
-            disabled={!selectedFile || uploading}
-            color='blue'
-          >
-            {uploading ? (
-              <>
-                <div className='flex justify-center items-center'>
-                  <ArrowPathIcon className='w-8 h-8 rotate' />
-                  <span className='inline-block ml-2'>Uploading...</span>
-                </div>
-              </>
-            ) : (
-              "アップロード"
+          <div className='flex gap-4'>
+            <Button
+              type='submit'
+              disabled={!selectedFile || uploading}
+              color='blue'
+            >
+              {uploading ? (
+                <>
+                  <div className='flex justify-center items-center'>
+                    <ArrowPathIcon className='w-8 h-8 rotate' />
+                    <span className='inline-block ml-2'>Uploading...</span>
+                  </div>
+                </>
+              ) : (
+                "アップロード"
+              )}
+            </Button>
+            {validationError && (
+              <p className='self-center'>{validationError}</p>
             )}
-          </Button>
+          </div>
         </form>
       )}
 
