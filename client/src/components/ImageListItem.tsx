@@ -36,7 +36,7 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
           </div>
         ) : error ? (
           <div className='h-full flex items-center justify-center'>
-            <p>No Image Found</p>
+            <p className='text-center'>{error}</p>
           </div>
         ) : (
           <>
