@@ -36,7 +36,7 @@ const ImageCreatePage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [imageHex, setImageHex] = useState<string | null>(null)
-  let [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
