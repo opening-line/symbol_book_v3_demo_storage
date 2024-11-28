@@ -26,6 +26,7 @@ import Button from "../../components/Button.tsx"
 import useGetLatestFileIndex from "../../hooks/useGetLatestFileIndex.ts"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import TitleSection from "../../components/TitleSection.tsx"
+import { Config } from "../../utils/config.ts"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -285,7 +286,7 @@ const ImageCreatePage: React.FC = () => {
                 <Description></Description>
                 <p>
                   <span className='block'>トランザクションハッシュ</span>
-                  {result && <span className='block break-all'>{result.hash}</span>}
+                  {result && <a href={`${Config.NODE_URL}/transactionStatus/${result.hash}`} target='_blank' rel='noreferrer noopener' className='block break-all'>{result.hash}</a>}
                 </p>
               </>
             )}
