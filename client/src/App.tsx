@@ -4,6 +4,7 @@ import Layout from "./layouts/Layout.tsx"
 import NotFound from "./pages/404/page.tsx"
 import Login from "./pages/login/page.tsx"
 import Register from "./pages/register/page.tsx"
+import MyPage from "./pages/mypage/page.tsx"
 import New from "./pages/new/page.tsx"
 import List from "./pages/list/page.tsx"
 import Detail from "./pages/detail/page.tsx"
@@ -29,6 +30,7 @@ const AuthRouter: React.FC = () => {
       <Route path='/' element={<Layout />}>
         <Route path='about' element={<About />} />
         <Route path='example' element={<Example />} />
+        <Route path='mypage' element={<MyPage />} />
         <Route path='new' element={<New />} />
         <Route path='list' element={<Navigate to='0' />} />
         <Route path='list/:page' element={<List />} />

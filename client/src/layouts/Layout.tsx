@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { Outlet, Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react"
+import { Button, Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey } from "symbol-sdk"
@@ -71,6 +71,19 @@ function Navbar({ handleLogout, address }: NavbarProps) {
 
         <MenuItems className='absolute right-0 mt-2 w-40 bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
+            <MenuItem>
+              {({ focus }) => (
+                <Button
+                  as={Link}
+                  to='/mypage'
+                  className={`${
+                    focus ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                  } block px-4 py-2 text-sm w-full text-left`}
+                >
+                  マイページ
+                </Button>
+              )}
+            </MenuItem>
             <MenuItem>
               {({ focus }) => (
                 <button
