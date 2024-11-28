@@ -99,8 +99,6 @@ const ImageCreatePage: React.FC = () => {
       alert("ファイルを選択してください")
       return
     }
-    // アップロード処理をここに追加
-    console.log("ファイルをアップロード:", selectedFile)
 
     const splitChunks = (hex: string, chunkSize = 2048) => {
       const chunks = []
