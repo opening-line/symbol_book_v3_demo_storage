@@ -7,7 +7,7 @@ import {
   Header,
   MetadataResponse,
 } from "../types/BlockchainAPI.ts"
-import { combineLittleEndianHexNumbers } from "../utils/hexUtils.ts"
+import { numbersToLittleEndianHexNumbers } from "../utils/hexUtils.ts"
 import { useEffect, useState } from "react"
 import mime from "mime"
 
@@ -130,7 +130,7 @@ export default function useGetImageFromBlockchain(fileId?: string) {
     url.searchParams.append("metadataType", "0")
     url.searchParams.append(
       "scopedMetadataKey",
-      combineLittleEndianHexNumbers(fileId, 0),
+      numbersToLittleEndianHexNumbers(fileId, 0),
     )
     const { data } = (await fetch(url, { signal }).then((res) =>
       res.json(),
@@ -160,7 +160,7 @@ export default function useGetImageFromBlockchain(fileId?: string) {
       url.searchParams.append("metadataType", "0")
       url.searchParams.append(
         "scopedMetadataKey",
-        `${combineLittleEndianHexNumbers(fileId, i)}`,
+        `${numbersToLittleEndianHexNumbers(fileId, i)}`,
       )
       const { data } = (await fetch(url, { signal }).then((res) =>
         res.json(),

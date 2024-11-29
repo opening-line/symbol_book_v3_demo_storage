@@ -1,5 +1,5 @@
 import {
-  combineLittleEndianHexNumbers,
+  numbersToLittleEndianHexNumbers,
   numberToLittleEndianHexString,
 } from "./hexUtils.ts"
 
@@ -53,7 +53,7 @@ function create(
   return [header, ...metadataChunks, ...imageChunks].map(
     (chunk, index) => {
       return {
-        key: combineLittleEndianHexNumbers(fileIndex, index),
+        key: numbersToLittleEndianHexNumbers(fileIndex, index),
         chunk,
       }
     },

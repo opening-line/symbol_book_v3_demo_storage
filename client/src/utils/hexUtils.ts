@@ -21,16 +21,17 @@ export const numberToLittleEndianHexString = (
   return reversedChunks.join("")
 }
 
-export function combineLittleEndianHexNumbers(
+export function numbersToLittleEndianHexNumbers(
   num1: number,
   num2: number,
+  byteSize = 4,
 ): string {
   if (num1 < 0 || num2 < 0 || num1 >= 0x100000000 || num2 >= 0x100000000) {
     throw new Error("引数の数値が範囲外です。")
   }
 
-  const littleEndianHex1 = numberToLittleEndianHexString(num1, 4)
-  const littleEndianHex2 = numberToLittleEndianHexString(num2, 4)
+  const littleEndianHex1 = numberToLittleEndianHexString(num1, byteSize)
+  const littleEndianHex2 = numberToLittleEndianHexString(num2, byteSize)
 
   return littleEndianHex1 + littleEndianHex2
 }

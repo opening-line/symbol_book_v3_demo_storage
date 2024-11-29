@@ -3,7 +3,7 @@ import { PrivateKey } from "symbol-sdk"
 import { Config } from "../utils/config.ts"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
 import { MetadataResponse } from "../types/BlockchainAPI.ts"
-import { combineLittleEndianHexNumbers } from "../utils/hexUtils.ts"
+import { numbersToLittleEndianHexNumbers } from "../utils/hexUtils.ts"
 import { useEffect, useState } from "react"
 import { findFirstUnusedIndex } from "../utils/asyncBinarySearch.ts"
 
@@ -72,7 +72,7 @@ export default function useGetLatestFileIndex() {
     url.searchParams.append("metadataType", "0")
     url.searchParams.append(
       "scopedMetadataKey",
-      combineLittleEndianHexNumbers(fileId, 0),
+      numbersToLittleEndianHexNumbers(fileId, 0),
     )
     const { data } = (await fetch(url, { signal }).then((res) =>
       res.json(),
