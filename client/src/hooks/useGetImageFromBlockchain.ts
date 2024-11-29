@@ -2,7 +2,11 @@ import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey, utils } from "symbol-sdk"
 import { Config } from "../utils/config.ts"
 import usePrivateKeyStorage from "../hooks/usePrivateKeyStorage.ts"
-import { DataItem, Header, MetadataResponse } from "../types/BlockchainAPI.ts"
+import {
+  DataItem,
+  Header,
+  MetadataResponse,
+} from "../types/BlockchainAPI.ts"
 import { combineLittleEndianHexNumbers } from "../utils/hexUtils.ts"
 import { useEffect, useState } from "react"
 import mime from "mime"
@@ -55,9 +59,15 @@ export default function useGetImageFromBlockchain(fileId?: string) {
 
         const account = new KeyPair(new PrivateKey(privateKey))
         const facade = new SymbolFacade(Config.NETWORK)
-        const address = facade.network.publicKeyToAddress(account.publicKey)
+        const address = facade.network.publicKeyToAddress(
+          account.publicKey,
+        )
 
-        const header = await getHeader(controller.signal, address, fileIdNumber)
+        const header = await getHeader(
+          controller.signal,
+          address,
+          fileIdNumber,
+        )
 
         const body = await getBody(
           controller.signal,
@@ -79,7 +89,10 @@ export default function useGetImageFromBlockchain(fileId?: string) {
         const payload = body
           .slice(header.payloadOffset - 1)
           .map((payload) => payload.value)
-          .reduce((accumulator, currentValue) => accumulator + currentValue, "")
+          .reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            "",
+          )
         const base64Payload = btoa(
           String.fromCharCode(...utils.hexToUint8(payload)),
         )

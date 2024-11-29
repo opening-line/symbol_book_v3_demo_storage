@@ -32,7 +32,9 @@ function usePrivateKeyStorage() {
         setStoredValue(null)
       }
     } catch (error) {
-      throw new Error("Failed to retrieve item from localStorage in useEffect")
+      throw new Error(
+        "Failed to retrieve item from localStorage in useEffect",
+      )
     }
   }, [uniqueKey])
 

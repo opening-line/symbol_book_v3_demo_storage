@@ -8,8 +8,13 @@ type ImageDisplayProps = {
   onClick: (id: number | string) => void
 }
 
-const ImageListItem: React.FC<ImageDisplayProps> = ({ fileId, onClick }) => {
-  const { data, loading, error } = useGetImageFromBlockchain(fileId.toString())
+const ImageListItem: React.FC<ImageDisplayProps> = ({
+  fileId,
+  onClick,
+}) => {
+  const { data, loading, error } = useGetImageFromBlockchain(
+    fileId.toString(),
+  )
 
   const disabled = useMemo(() => {
     if (loading) return true

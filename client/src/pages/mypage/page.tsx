@@ -33,18 +33,19 @@ const Detail = () => {
     }
   }
 
-  const copyToClipboard = (value: string | null, text: string) => async () => {
-    try {
-      if (!value) {
+  const copyToClipboard =
+    (value: string | null, text: string) => async () => {
+      try {
+        if (!value) {
+          alert("コピーに失敗しました。")
+          return
+        }
+        await navigator.clipboard.writeText(value)
+        alert(`${text}をコピーしました！`)
+      } catch (err) {
         alert("コピーに失敗しました。")
-        return
       }
-      await navigator.clipboard.writeText(value)
-      alert(`${text}をコピーしました！`)
-    } catch (err) {
-      alert("コピーに失敗しました。")
     }
-  }
 
   return (
     <Container>

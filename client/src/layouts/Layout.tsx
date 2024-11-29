@@ -60,10 +60,16 @@ function Navbar({ handleLogout, address }: NavbarProps) {
         </div>
 
         <div className='flex space-x-4'>
-          <Link to='/list' className='text-sm font-medium hover:text-gray-300'>
+          <Link
+            to='/list'
+            className='text-sm font-medium hover:text-gray-300'
+          >
             一覧
           </Link>
-          <Link to='/new' className='text-sm font-medium hover:text-gray-300'>
+          <Link
+            to='/new'
+            className='text-sm font-medium hover:text-gray-300'
+          >
             新規
           </Link>
         </div>

@@ -20,7 +20,9 @@ export default function useUploadToBlockchain() {
   const [uploading, setUploading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function uploadToBlockchain(chunks: { key: string; chunk: string }[]) {
+  async function uploadToBlockchain(
+    chunks: { key: string; chunk: string }[],
+  ) {
     if (!privateKey) {
       throw new Error("private key is not set")
     }
@@ -31,7 +33,9 @@ export default function useUploadToBlockchain() {
       const account = new KeyPair(new PrivateKey(privateKey))
       const facade = new SymbolFacade(Config.NETWORK)
       const deadline = facade.now().addHours(2).timestamp
-      const targetAddress = facade.network.publicKeyToAddress(account.publicKey)
+      const targetAddress = facade.network.publicKeyToAddress(
+        account.publicKey,
+      )
       const signerPublicKey = account.publicKey.toString()
 
       const metadataTransactions = chunks.map(({ key, chunk }) => {
@@ -46,8 +50,9 @@ export default function useUploadToBlockchain() {
         })
       })
 
-      const transactionsHash =
-        SymbolFacade.hashEmbeddedTransactions(metadataTransactions)
+      const transactionsHash = SymbolFacade.hashEmbeddedTransactions(
+        metadataTransactions,
+      )
 
       const transaction = facade.transactionFactory.create({
         type: "aggregate_complete_transaction_v2",
@@ -68,11 +73,14 @@ export default function useUploadToBlockchain() {
       )
       const hash = facade.hashTransaction(transaction).toString()
 
-      const response = await fetch(new URL("/transactions", Config.NODE_URL), {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: jsonPayload,
-      }).then((res) => res.json())
+      const response = await fetch(
+        new URL("/transactions", Config.NODE_URL),
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: jsonPayload,
+        },
+      ).then((res) => res.json())
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
 

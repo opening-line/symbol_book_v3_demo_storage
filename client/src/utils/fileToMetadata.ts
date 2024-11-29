@@ -26,7 +26,9 @@ function create(
   }
 
   const encoder = new TextEncoder()
-  const metadataHex = Array.from(encoder.encode(JSON.stringify(metadataObject)))
+  const metadataHex = Array.from(
+    encoder.encode(JSON.stringify(metadataObject)),
+  )
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("")
 
@@ -42,12 +44,14 @@ function create(
     metadataChunks.length + 1,
   )
   const header = `${headerVersion}${headerReserve}${headerLength}${headerMetadataOffset}${headerPayloadOffset}`
-  return [header, ...metadataChunks, ...imageChunks].map((chunk, index) => {
-    return {
-      key: combineLittleEndianHexNumbers(fileIndex, index),
-      chunk,
-    }
-  })
+  return [header, ...metadataChunks, ...imageChunks].map(
+    (chunk, index) => {
+      return {
+        key: combineLittleEndianHexNumbers(fileIndex, index),
+        chunk,
+      }
+    },
+  )
 }
 
 export default create

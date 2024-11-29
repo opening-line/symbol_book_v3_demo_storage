@@ -54,7 +54,9 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           key={index}
           className={`mx-1 px-3 py-1 border rounded w-12 h-12 flex items-center justify-center ${typeof page === "number" && page === currentPage ? "bg-blue-500 text-white" : "bg-white text-blue-500"}`}
-          onClick={() => (typeof page === "number" ? onPageChange(page) : null)}
+          onClick={() =>
+            typeof page === "number" ? onPageChange(page) : null
+          }
           disabled={page === "..."}
         >
           {typeof page === "number" ? (

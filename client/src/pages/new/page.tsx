@@ -37,7 +37,9 @@ const ImageCreatePage: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [imageHex, setImageHex] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [validationError, setValidationError] = useState<string | null>(null)
+  const [validationError, setValidationError] = useState<string | null>(
+    null,
+  )
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -107,7 +109,12 @@ const ImageCreatePage: React.FC = () => {
       return
     }
 
-    const chunks = fileToMetadata(selectedFile, imageHex, fileIndex, Date.now())
+    const chunks = fileToMetadata(
+      selectedFile,
+      imageHex,
+      fileIndex,
+      Date.now(),
+    )
 
     upload(chunks).then(() => {
       setIsOpen(true)
@@ -140,7 +147,9 @@ const ImageCreatePage: React.FC = () => {
         <form onSubmit={handleSubmit} className='mb-4'>
           {uploading ? (
             <div className='border-2 border-dashed border-gray-300 p-6 text-center mb-4 cursor-wait text-gray-300'>
-              <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+              <p>
+                画像をドラッグ＆ドロップするか、クリックしてアップロード
+              </p>
             </div>
           ) : (
             <div
@@ -150,7 +159,9 @@ const ImageCreatePage: React.FC = () => {
               className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
               style={{ cursor: "pointer" }}
             >
-              <p>画像をドラッグ＆ドロップするか、クリックしてアップロード</p>
+              <p>
+                画像をドラッグ＆ドロップするか、クリックしてアップロード
+              </p>
               <input
                 type='file'
                 onChange={handleInputChange}

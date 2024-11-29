@@ -35,7 +35,9 @@ function GenerateKeyPage() {
         <h1 className='text-2xl font-bold text-center'>新規秘密鍵生成</h1>
         {privateKey && (
           <div className='mb-4'>
-            <label className='block text-gray-700 mb-2'>生成された秘密鍵</label>
+            <label className='block text-gray-700 mb-2'>
+              生成された秘密鍵
+            </label>
             <div className='relative'>
               <input
                 type='text'
@@ -47,7 +49,9 @@ function GenerateKeyPage() {
           </div>
         )}
         <div className='mb-4'>
-          <label className='block text-gray-700 mb-2'>生成されたアドレス</label>
+          <label className='block text-gray-700 mb-2'>
+            生成されたアドレス
+          </label>
           <div className='relative'>
             <input
               type='text'

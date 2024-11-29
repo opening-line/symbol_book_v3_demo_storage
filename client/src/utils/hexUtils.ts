@@ -1,4 +1,7 @@
-export const numberToLittleEndianHexString = (num: number, byteSize = 4) => {
+export const numberToLittleEndianHexString = (
+  num: number,
+  byteSize = 4,
+) => {
   if (byteSize <= 0) {
     throw new Error("Invalid byte size")
   }

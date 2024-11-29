@@ -31,11 +31,15 @@ export default function useGetLatestFileIndex() {
 
         const account = new KeyPair(new PrivateKey(privateKey))
         const facade = new SymbolFacade(Config.NETWORK)
-        const address = facade.network.publicKeyToAddress(account.publicKey)
+        const address = facade.network.publicKeyToAddress(
+          account.publicKey,
+        )
 
-        const nextFileIndex = await findFirstUnusedIndex((index: number) => {
-          return existsHeaderById(controller.signal, address, index)
-        })
+        const nextFileIndex = await findFirstUnusedIndex(
+          (index: number) => {
+            return existsHeaderById(controller.signal, address, index)
+          },
+        )
 
         setData({
           latestFileIndex: nextFileIndex - 1,

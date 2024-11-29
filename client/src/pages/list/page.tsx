@@ -36,7 +36,9 @@ const ImageGallery: React.FC = () => {
 
   const onPageChange = (page: number) => navigate(`/list/${page}`)
 
-  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePerPageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setPerPage(Number(event.target.value))
   }
 
