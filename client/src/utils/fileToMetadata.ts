@@ -11,6 +11,25 @@ const splitChunks = (hex: string, chunkSize = 2048) => {
   return chunks
 }
 
+function createHeader(metadataChunksLength: number, imageChunksLength: number) {
+  const version = "00000000"
+  const reserve = "00000000"
+  const length = numberToLittleEndianHexString(
+    1 + metadataChunksLength + imageChunksLength,
+  )
+  const metadataOffset = "01000000"
+  const payloadOffset = numberToLittleEndianHexString(
+    metadataChunksLength + 1,
+  )
+  return [
+    version,
+    reserve,
+    length,
+    metadataOffset,
+    payloadOffset,
+  ].join()
+}
+
 function create(
   file: File,
   imageHex: string,
@@ -34,22 +53,9 @@ function create(
 
   const imageChunks = splitChunks(imageHex)
   const metadataChunks = splitChunks(metadataHex)
-  const headerVersion = "00000000"
-  const headerReserve = "00000000"
-  const headerLength = numberToLittleEndianHexString(
-    1 + metadataChunks.length + imageChunks.length,
-  )
-  const headerMetadataOffset = "01000000"
-  const headerPayloadOffset = numberToLittleEndianHexString(
-    metadataChunks.length + 1,
-  )
-  const header = [
-    headerVersion,
-    headerReserve,
-    headerLength,
-    headerMetadataOffset,
-    headerPayloadOffset,
-  ].join()
+
+  const header = createHeader(metadataChunks.length, imageChunks.length)
+
   return [header, ...metadataChunks, ...imageChunks].map(
     (chunk, index) => {
       return {
