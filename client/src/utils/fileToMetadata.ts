@@ -11,7 +11,10 @@ const splitChunks = (hex: string, chunkSize = 2048) => {
   return chunks
 }
 
-function createHeader(metadataChunksLength: number, imageChunksLength: number) {
+function createHeader(
+  metadataChunksLength: number,
+  imageChunksLength: number,
+) {
   const version = "00000000"
   const reserve = "00000000"
   const length = numberToLittleEndianHexString(
@@ -21,13 +24,7 @@ function createHeader(metadataChunksLength: number, imageChunksLength: number) {
   const payloadOffset = numberToLittleEndianHexString(
     metadataChunksLength + 1,
   )
-  return [
-    version,
-    reserve,
-    length,
-    metadataOffset,
-    payloadOffset,
-  ].join()
+  return [version, reserve, length, metadataOffset, payloadOffset].join()
 }
 
 function create(
