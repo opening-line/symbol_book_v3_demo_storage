@@ -43,7 +43,13 @@ function create(
   const headerPayloadOffset = numberToLittleEndianHexString(
     metadataChunks.length + 1,
   )
-  const header = `${headerVersion}${headerReserve}${headerLength}${headerMetadataOffset}${headerPayloadOffset}`
+  const header = [
+    headerVersion,
+    headerReserve,
+    headerLength,
+    headerMetadataOffset,
+    headerPayloadOffset,
+  ].join()
   return [header, ...metadataChunks, ...imageChunks].map(
     (chunk, index) => {
       return {
