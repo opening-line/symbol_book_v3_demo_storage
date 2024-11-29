@@ -27,6 +27,18 @@ function createHeader(
   return [version, reserve, length, metadataOffset, payloadOffset].join()
 }
 
+function createMetadata(fileName: string, timestamp: number) {
+  const metadataObject = {
+    fileName,
+    timestamp,
+  }
+
+  const encoder = new TextEncoder()
+  return Array.from(encoder.encode(JSON.stringify(metadataObject)))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("")
+}
+
 function create(
   file: File,
   imageHex: string,
@@ -36,17 +48,7 @@ function create(
   key: string
   chunk: string
 }> {
-  const metadataObject = {
-    fileName: file.name,
-    timestamp,
-  }
-
-  const encoder = new TextEncoder()
-  const metadataHex = Array.from(
-    encoder.encode(JSON.stringify(metadataObject)),
-  )
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("")
+  const metadataHex = createMetadata(file.name, timestamp)
 
   const imageChunks = splitChunks(imageHex)
   const metadataChunks = splitChunks(metadataHex)
