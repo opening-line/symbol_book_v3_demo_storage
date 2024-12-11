@@ -24,7 +24,7 @@ function createHeader(
   const payloadOffset = numberToLittleEndianHexString(
     metadataChunksLength + 1,
   )
-  return [version, reserve, length, metadataOffset, payloadOffset].join()
+  return [version, reserve, length, metadataOffset, payloadOffset].join("")
 }
 
 function createMetadata(fileName: string, timestamp: number) {
