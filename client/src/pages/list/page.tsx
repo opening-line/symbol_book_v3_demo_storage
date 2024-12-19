@@ -5,6 +5,7 @@ import ImageListItem from "../../components/ImageListItem.tsx"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
 import TitleSection from "../../components/TitleSection.tsx"
+import styles from "./page.module.css"
 
 const ImageGallery: React.FC = () => {
   const { page } = useParams<{ page: string }>()
@@ -45,34 +46,34 @@ const ImageGallery: React.FC = () => {
   return (
     <Container>
       <TitleSection>画像一覧</TitleSection>
-      <div className='mb-4'>
+      <div className={styles.buttonWrapper}>
         <Button onClick={handleNewButtonClick} color='blue'>
           新規作成
         </Button>
       </div>
-      <div className='text-right mb-2'>
-        <label htmlFor='perPage' className='mr-2'>
+      <div className={styles.perPageWrapper}>
+        <label htmlFor='perPage' className={styles.perPageLabel}>
           表示件数:
         </label>
         <select
           id='perPage'
           value={perPage}
           onChange={handlePerPageChange}
-          className='mt-1'
+          className={styles.selectPerPage}
         >
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>
         </select>
       </div>
-      <div className='mb-4'>
+      <div className={styles.paginationWrapper}>
         <Pagination
           onPageChange={onPageChange}
           totalPages={1000}
           currentPage={pageIndex}
         />
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4'>
+      <div className={styles.gridContainer}>
         {idList.map((id) => (
           <ImageListItem key={id} fileId={id} onClick={handleImageClick} />
         ))}

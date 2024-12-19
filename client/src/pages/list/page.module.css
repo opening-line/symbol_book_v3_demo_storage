@@ -1,0 +1,42 @@
+.container {
+  margin-bottom: 1rem;
+}
+
+.buttonWrapper {
+  margin-bottom: 1rem;
+}
+
+.perPageWrapper {
+  text-align: right;
+  margin-bottom: 0.5rem;
+}
+
+.perPageLabel {
+  margin-right: 0.5rem;
+}
+
+.selectPerPage {
+  margin-top: 0.25rem;
+}
+
+.paginationWrapper {
+  margin-bottom: 1rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .gridContainer {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
