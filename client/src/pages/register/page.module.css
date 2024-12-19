@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.innerContainer {
+  width: 100%;
+  max-width: 24rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.innerContainer > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+}
+
+.greenButton {
+  background-color: #10b981;
+}
+
+.greenButton:hover {
+  background-color: #059669;
+}
+
+.greenButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
+}
+
+.blueButton {
+  background-color: #3b82f6;
+  margin-top: 1rem;
+}
+
+.blueButton:hover {
+  background-color: #2563eb;
+}
+
+.blueButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.redButton {
+  background-color: #ef4444;
+  margin-top: 1rem;
+}
+
+.redButton:hover {
+  background-color: #dc2626;
+}
+
+.redButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+}
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: 2px solid #d1d5db;
+}

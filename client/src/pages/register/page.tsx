@@ -5,6 +5,7 @@ import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey } from "symbol-sdk"
 import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
 import { Config } from "../../utils/config.ts"
+import styles from "./page.module.css"
 
 function GenerateKeyPage() {
   const [privateKey, setPrivateKey] = useState("")
@@ -30,53 +31,50 @@ function GenerateKeyPage() {
   }
 
   return (
-    <div className='flex items-center justify-center h-screen bg-gray-100'>
-      <div className='w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg'>
-        <h1 className='text-2xl font-bold text-center'>新規秘密鍵生成</h1>
+    <div className={styles.container}>
+      <div className={styles.innerContainer}>
+        <div className='space-y-6'></div>
+        <h1 className={styles.title}>新規秘密鍵生成</h1>
         {privateKey && (
-          <div className='mb-4'>
-            <label className='block text-gray-700 mb-2'>
-              生成された秘密鍵
-            </label>
-            <div className='relative'>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>生成された秘密鍵</label>
+            <div>
               <input
                 type='text'
                 value={privateKey}
                 readOnly
-                className='w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+                className={styles.input}
               />
             </div>
           </div>
         )}
-        <div className='mb-4'>
-          <label className='block text-gray-700 mb-2'>
-            生成されたアドレス
-          </label>
-          <div className='relative'>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>生成されたアドレス</label>
+          <div>
             <input
               type='text'
               value={address}
               readOnly
-              className='w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+              className={styles.input}
             />
           </div>
         </div>
         <button
           onClick={handleNavigate}
-          className='w-full px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'
+          className={`${styles.button} ${styles.greenButton}`}
         >
           この鍵でログインする
         </button>
         <button
           onClick={generateNewKey}
-          className='w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400'
+          className={`${styles.button} ${styles.blueButton}`}
         >
           違う鍵を生成する
         </button>
-        <hr className='my-4 border-t-2 border-gray-300' />
+        <hr className={styles.divider} />
         <button
           onClick={() => navigate("/")}
-          className='w-full px-4 py-2 mt-4 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400'
+          className={`${styles.button} ${styles.redButton}`}
         >
           ログインページへ戻る
         </button>
