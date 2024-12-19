@@ -4,6 +4,7 @@ import useGetImageFromBlockchain from "../../hooks/useGetImageFromBlockchain.ts"
 import Container from "../../components/Container.tsx"
 import Button from "../../components/Button.tsx"
 import TitleSection from "../../components/TitleSection.tsx"
+import styles from "./page.module.css"
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>()
@@ -14,14 +15,14 @@ const Detail = () => {
     <Container>
       <TitleSection>画像詳細</TitleSection>
 
-      <p className='mb-2'>
-        <span className='text-lg mr-2'>ファイルID:</span>
-        <span className='text-xl font-bold'>{id}</span>
+      <p className={styles.fileInfo}>
+        <span className={styles.fileLabel}>ファイルID:</span>
+        <span className={styles.fileValue}>{id}</span>
       </p>
 
-      <p className='mb-2'>
-        <span className='text-lg mr-2'>ファイル名:</span>
-        <span className='text-xl font-bold'>
+      <p className={styles.fileInfo}>
+        <span className={styles.fileLabel}>ファイル名:</span>
+        <span className={styles.fileValue}>
           {data && data.meta && data.meta.fileName ? (
             <span>{data.meta.fileName}</span>
           ) : (
@@ -30,9 +31,9 @@ const Detail = () => {
         </span>
       </p>
 
-      <p className='mb-2'>
-        <span className='text-lg mr-2'>アップロード日付:</span>
-        <span className='text-xl font-bold'>
+      <p className={styles.fileInfo}>
+        <span className={styles.fileLabel}>アップロード日付:</span>
+        <span className={styles.fileValue}>
           {data && data.meta && data.meta.timestamp ? (
             <span>{`${new Date(data.meta.timestamp).toLocaleString()}`}</span>
           ) : (
@@ -41,33 +42,33 @@ const Detail = () => {
         </span>
       </p>
 
-      <div className='mb-4 h-96 w-full'>
+      <div className={styles.imageContainer}>
         {loading ? (
-          <div className='flex items-center justify-start'>
+          <div className={styles.loading}>
             Loading
-            <EllipsisHorizontalIcon className='w-5 h-5' />
+            <EllipsisHorizontalIcon className={styles.loadingIcon} />
           </div>
         ) : error ? (
           <div>Error loading image</div>
         ) : (
-          <div className='inline-block h-full p-4 shadow-lg'>
+          <div className={styles.imageWrapper}>
             {data && data.payload && data.mime ? (
               <img
                 src={`data:${data.mime};base64,${data.payload}`}
-                className='h-full object-contain'
+                className={styles.image}
                 alt='Preview'
               />
             ) : (
               <img
                 src='/no_image.svg'
-                className='w-full h-full object-contain'
+                className={styles.noImage}
                 alt='Preview'
               />
             )}
           </div>
         )}
       </div>
-      <div>
+      <div className={styles.backButton}>
         <Button onClick={() => window.history.back()}>戻る</Button>
       </div>
     </Container>
