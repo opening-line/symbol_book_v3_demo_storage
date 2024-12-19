@@ -4,6 +4,7 @@ import {
   ChevronRightIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/solid"
+import styles from "./pagination.module.css"
 
 interface PaginationProps {
   currentPage: number
@@ -42,18 +43,22 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className='flex justify-center mt-4'>
+    <div className={styles.container}>
       <button
-        className='mx-1 px-3 py-1 border rounded flex items-center'
+        className={styles.button}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 0}
       >
-        <ChevronLeftIcon className='w-5 h-5 text-blue-500' />
+        <ChevronLeftIcon className={styles.icon} />
       </button>
       {getPageNumbers().map((page, index) => (
         <button
           key={index}
-          className={`mx-1 px-3 py-1 border rounded w-12 h-12 flex items-center justify-center ${typeof page === "number" && page === currentPage ? "bg-blue-500 text-white" : "bg-white text-blue-500"}`}
+          className={`${styles.pageButton} ${
+            typeof page === "number" && page === currentPage
+              ? styles.pageButtonActive
+              : styles.pageButtonInactive
+          }`}
           onClick={() =>
             typeof page === "number" ? onPageChange(page) : null
           }
@@ -62,16 +67,16 @@ const Pagination: React.FC<PaginationProps> = ({
           {typeof page === "number" ? (
             page
           ) : (
-            <EllipsisHorizontalIcon className='w-5 h-5 text-blue-500' />
+            <EllipsisHorizontalIcon className={styles.ellipsisIcon} />
           )}
         </button>
       ))}
       <button
-        className='mx-1 px-3 py-1 border rounded flex items-center'
+        className={styles.button}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        <ChevronRightIcon className='w-5 h-5 text-blue-500' />
+        <ChevronRightIcon className={styles.icon} />
       </button>
     </div>
   )
