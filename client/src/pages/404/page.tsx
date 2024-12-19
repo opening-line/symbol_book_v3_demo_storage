@@ -1,18 +1,25 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import styles from "./page.module.css"
 
 const NotFoundPage: React.FC = () => {
   return (
-    <div className='flex flex-col items-center justify-center h-screen bg-gray-100'>
-      <div className='text-center'>
-        <h1 className='text-9xl font-bold text-gray-800'>404</h1>
-        <p className='text-2xl mt-4'>Page Not Found</p>
-        <p className='text-gray-600 mt-2'>
+    <div className={styles.container}>
+      <div className={styles.textCenter}>
+        <h1 className={styles.errorCode}>404</h1>
+        <p className={styles.message}>Page Not Found</p>
+        <p className={styles.description}>
           申し訳ありませんが、お探しのページは見つかりませんでした。
         </p>
         <Link
           to='/'
-          className='mt-6 inline-block px-4 py-2 border rounded-lg text-white bg-blue-500 hover:bg-blue-700'
+          className={styles.linkButton}
+          onMouseOver={(e) =>
+            e.currentTarget.classList.add(styles.linkButtonHover)
+          }
+          onMouseOut={(e) =>
+            e.currentTarget.classList.remove(styles.linkButtonHover)
+          }
         >
           ホームへ戻る
         </Link>

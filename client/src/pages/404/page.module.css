@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.errorCode {
+  font-size: 8rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.message {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.description {
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.linkButton {
+  margin-top: 1.5rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: #3b82f6;
+  text-decoration: none;
+  text-align: center;
+}
+
+.linkButtonHover {
+  background-color: #2563eb;
+}
