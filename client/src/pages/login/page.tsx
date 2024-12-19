@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 import usePrivateKeyStorage from "../../hooks/usePrivateKeyStorage.ts"
 import isValidPrivateKey from "../../utils/isValidPrivateKey.ts"
+import styles from "./page.module.css"
 
 function LoginPage() {
   const [privateKey, setPrivateKey] = useState("")
@@ -44,44 +45,39 @@ function LoginPage() {
   }
 
   return (
-    <div className='flex items-center justify-center h-screen bg-gray-100'>
-      <div className='w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg'>
-        <h1 className='text-2xl font-bold text-center'>ログイン</h1>
+    <div className={styles.container}>
+      <div className={styles.formContainer}>
+        <h1 className={styles.title}>ログイン</h1>
         <form onSubmit={handleSubmit}>
-          <div className='mb-4'>
-            <label className='block text-gray-700 mb-2'>
-              秘密鍵（16進数64文字）
-            </label>
-            <div className='relative'>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>秘密鍵（16進数64文字）</label>
+            <div className={styles.inputWrapper}>
               <input
                 type={showPassword ? "text" : "password"}
                 value={privateKey}
                 onChange={handleChange}
-                className='w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
+                className={styles.input}
               />
               <div
-                className='absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer'
+                className={styles.iconWrapper}
                 onClick={toggleShowPassword}
               >
                 {showPassword ? (
-                  <EyeIcon className='h-5 w-5 text-gray-500' />
+                  <EyeIcon className={styles.icon} />
                 ) : (
-                  <EyeSlashIcon className='h-5 w-5 text-gray-500' />
+                  <EyeSlashIcon className={styles.icon} />
                 )}
               </div>
             </div>
-            {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
+            {error && <p className={styles.error}>{error}</p>}
           </div>
-          <button
-            type='submit'
-            className='w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400'
-          >
+          <button type='submit' className={styles.submitButton}>
             ログイン
           </button>
-          <hr className='my-4 border-t border-gray-200' />
+          <hr className={styles.divider} />
           <button
             onClick={handleRegisterNavigate}
-            className='w-full px-4 py-2 mt-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'
+            className={styles.registerButton}
           >
             新規鍵生成
           </button>
