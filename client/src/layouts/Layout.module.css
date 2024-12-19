@@ -1,0 +1,82 @@
+.navbar {
+  background-color: #1f2937;
+  color: white;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  font-size: 1.125rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  display: block;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+}
+
+.linkHover {
+  color: #d1d5db;
+}
+
+.menuContainer {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #374151;
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.menuItems {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.menuItem {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #4b5563;
+  width: 100%;
+}
+
+.menuItemFocus {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
