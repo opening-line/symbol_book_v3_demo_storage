@@ -7,6 +7,7 @@ import { KeyPair, SymbolFacade } from "symbol-sdk/symbol"
 import { PrivateKey } from "symbol-sdk"
 import { Config } from "../../utils/config.ts"
 import Button from "../../components/Button.tsx"
+import styles from "./page.module.css"
 
 const Detail = () => {
   const navigate = useNavigate()
@@ -51,16 +52,16 @@ const Detail = () => {
     <Container>
       <TitleSection>マイページ</TitleSection>
 
-      <p className='flex flex-col mb-4'>
-        <span className='text-lg font-bold'>アドレス</span>
+      <p className={styles.containerText}>
+        <span className={styles.sectionTitle}>アドレス</span>
         <div>
-          <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4'>
-            <div className='bg-gray-200 px-2 py-1 rounded w-full sm:w-auto max-w-full'>
-              <span className='text-sm break-all'>{address}</span>
+          <div className={`${styles.addressRow} ${styles.sm}`}>
+            <div className={`${styles.keyBox} ${styles.sm}`}>
+              <span className={styles.textSmall}>{address}</span>
             </div>
             <button
               onClick={copyToClipboard(address, "アドレス")}
-              className='px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600'
+              className={styles.button}
             >
               コピーする
             </button>
@@ -68,24 +69,24 @@ const Detail = () => {
         </div>
       </p>
 
-      <div className='flex flex-col mb-12'>
-        <span className='text-lg font-bold'>秘密鍵</span>
+      <div className={styles.privateKeyContainer}>
+        <span className={styles.sectionTitle}>秘密鍵</span>
         <div>
-          <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4'>
-            <div className='bg-gray-200 px-2 py-1 rounded w-full sm:w-auto max-w-full'>
-              <span className='text-sm break-all font-mono'>
+          <div className={`${styles.privateKeyRow} ${styles.sm}`}>
+            <div className={`${styles.keyBox} ${styles.sm}`}>
+              <span className={`${styles.textSmall} ${styles.monoFont}`}>
                 {isVisible ? privateKey : maskedKey}
               </span>
             </div>
             <button
               onClick={() => setIsVisible(!isVisible)}
-              className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600'
+              className={`${styles.button} ${styles.buttonBlue}`}
             >
               {isVisible ? "隠す" : "閲覧する"}
             </button>
             <button
               onClick={copyToClipboard(privateKey, "秘密鍵")}
-              className='px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600'
+              className={styles.button}
             >
               コピーする
             </button>

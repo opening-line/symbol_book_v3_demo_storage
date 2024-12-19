@@ -1,0 +1,74 @@
+.containerText {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.addressContainer,
+.privateKeyContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.addressRow,
+.privateKeyRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.addressRow.sm,
+.privateKeyRow.sm {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.keyBox {
+  background-color: #e5e7eb;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.keyBox.sm {
+  width: auto;
+}
+
+.textSmall {
+  font-size: 0.875rem;
+  word-break: break-word;
+}
+
+.monoFont {
+  font-family: monospace;
+}
+
+.button {
+  padding: 0.25rem 0.75rem;
+  background-color: #10b981;
+  color: white;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #059669;
+}
+
+.buttonBlue {
+  background-color: #3b82f6;
+}
+
+.buttonBlue:hover {
+  background-color: #2563eb;
+}
