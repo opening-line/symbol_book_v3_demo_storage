@@ -1,0 +1,56 @@
+.buttonBase {
+  border-radius: 12px;
+  min-width: 10rem;
+  min-height: 4rem;
+}
+
+.gray {
+  background-color: #e2e8f0;
+}
+
+.gray:hover {
+  background-color: #cbd5e1;
+}
+
+.gray:disabled {
+  background-color: #f1f5f9;
+}
+
+.red {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.red:hover {
+  background-color: #dc2626;
+}
+
+.red:disabled {
+  background-color: #fecaca;
+}
+
+.green {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.green:hover {
+  background-color: #047857;
+}
+
+.green:disabled {
+  background-color: #a7f3d0;
+}
+
+.blue {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.blue:hover {
+  background-color: #2563eb;
+}
+
+.blue:disabled {
+  background-color: #bfdbfe;
+}
