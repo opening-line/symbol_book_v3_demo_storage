@@ -24,6 +24,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import TitleSection from "../../components/TitleSection.tsx"
 import { Config } from "../../utils/config.ts"
 import fileToMetadata from "../../utils/fileToMetadata.ts"
+import styles from "./page.module.css"
 
 const ImageCreatePage: React.FC = () => {
   const navigate = useNavigate()
@@ -134,9 +135,9 @@ const ImageCreatePage: React.FC = () => {
     <Container>
       <TitleSection>新規アップロード</TitleSection>
       {loadingFileIndex ? (
-        <div className='flex items-center justify-start'>
+        <div className={styles.loadingContainer}>
           Loading
-          <EllipsisHorizontalIcon className='w-5 h-5' />
+          <EllipsisHorizontalIcon className={styles.loadingIcon} />
         </div>
       ) : fileIndexError ? (
         <>
@@ -144,9 +145,9 @@ const ImageCreatePage: React.FC = () => {
           <code>{JSON.stringify(fileIndexError)}</code>
         </>
       ) : (
-        <form onSubmit={handleSubmit} className='mb-4'>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
           {uploading ? (
-            <div className='border-2 border-dashed border-gray-300 p-6 text-center mb-4 cursor-wait text-gray-300'>
+            <div className={styles.dragDropArea}>
               <p>
                 画像をドラッグ＆ドロップするか、クリックしてアップロード
               </p>
@@ -156,7 +157,7 @@ const ImageCreatePage: React.FC = () => {
               onClick={handleUploadClick}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
-              className='border-2 border-dashed border-gray-400 p-6 text-center mb-4'
+              className={styles.dragDropArea}
               style={{ cursor: "pointer" }}
             >
               <p>
@@ -172,15 +173,15 @@ const ImageCreatePage: React.FC = () => {
             </div>
           )}
 
-          <div className='mb-4'>
-            <h1 className='text-lg'>情報</h1>
-            <div className=''>
+          <div className={styles.infoContainer}>
+            <h1 className={styles.infoTitle}>情報</h1>
+            <div className={styles.infoText}>
               ファイル名 {selectedFile && `${selectedFile.name}`}
             </div>
-            <div className=''>
+            <div className={styles.infoText}>
               データサイズ {imageHex && `${imageHex.length / 2} bytes`}
             </div>
-            <div className=''>
+            <div className={styles.infoText}>
               内部トランザクション数{" "}
               {imageHex && (
                 <>
@@ -188,7 +189,7 @@ const ImageCreatePage: React.FC = () => {
                   {Math.ceil(imageHex.length / 2048) > 100 && (
                     <>
                       <br />
-                      <span className='text-red-500'>
+                      <span className={styles.internalTransactionWarning}>
                         内部トランザクション数は100までしか対応していません。続行することはできますが、エラーになる可能性があります。
                       </span>
                     </>
@@ -198,23 +199,25 @@ const ImageCreatePage: React.FC = () => {
             </div>
           </div>
 
-          <div className='mb-4'>
-            <h1 className='text-lg'>プレビュー</h1>
-            <div className='h-[200px] border'>
+          <div className={styles.previewContainer}>
+            <h1 className={styles.previewTitle}>プレビュー</h1>
+            <div className={styles.previewBox}>
               {previewUrl && (
-                <img src={previewUrl} alt='Preview' className='h-full' />
+                <img
+                  src={previewUrl}
+                  alt='Preview'
+                  className={styles.previewImage}
+                />
               )}
             </div>
           </div>
 
-          <div className='mb-4'>
-            <h1 className='text-lg'>データ</h1>
-            <div className='text-wrap break-words text-xs font-mono overflow-y-auto h-80 border'>
-              {imageHex}
-            </div>
+          <div className={styles.dataContainer}>
+            <h1 className={styles.dataTitle}>データ</h1>
+            <div className={styles.dataBox}>{imageHex}</div>
           </div>
 
-          <div className='flex gap-4'>
+          <div className={styles.buttonGroup}>
             <Button
               type='submit'
               disabled={!selectedFile || uploading}
@@ -222,9 +225,11 @@ const ImageCreatePage: React.FC = () => {
             >
               {uploading ? (
                 <>
-                  <div className='flex justify-center items-center'>
-                    <ArrowPathIcon className='w-8 h-8 rotate' />
-                    <span className='inline-block ml-2'>Uploading...</span>
+                  <div className={styles.uploadingContainer}>
+                    <ArrowPathIcon className={styles.uploadingIcon} />
+                    <span className={styles.uploadingText}>
+                      Uploading...
+                    </span>
                   </div>
                 </>
               ) : (
@@ -232,7 +237,7 @@ const ImageCreatePage: React.FC = () => {
               )}
             </Button>
             {validationError && (
-              <p className='self-center'>{validationError}</p>
+              <p className={styles.validationError}>{validationError}</p>
             )}
           </div>
         </form>
@@ -246,36 +251,36 @@ const ImageCreatePage: React.FC = () => {
         open={isOpen}
         onClose={() => {}}
         transition
-        className='fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0'
+        className={styles.dialog}
       >
-        <DialogBackdrop className='fixed inset-0 bg-black/30' />
-        <div className='fixed inset-0 flex w-screen items-center justify-center p-4'>
-          <DialogPanel className='max-w-lg space-y-4 border bg-white p-12 rounded-md'>
+        <DialogBackdrop className={styles.dialogBackdrop} />
+        <div className={styles.dialogContainer}>
+          <DialogPanel className={styles.dialogPanel}>
             {error ? (
               <>
-                <DialogTitle className='font-bold text-red-500'>
+                <DialogTitle className={styles.dialogTitleError}>
                   エラーが発生しました
                 </DialogTitle>
                 <Description></Description>
                 <p>
-                  <span className='block'>エラー内容</span>
-                  <span className='break-all'>{error}</span>
+                  <span>エラー内容</span>
+                  <span className={styles.dialogContent}>{error}</span>
                 </p>
               </>
             ) : (
               <>
-                <DialogTitle className='font-bold'>
+                <DialogTitle className={styles.dialogTitle}>
                   トランザクション送信完了
                 </DialogTitle>
                 <Description></Description>
                 <p>
-                  <span className='block'>トランザクションハッシュ</span>
+                  <span>トランザクションハッシュ</span>
                   {result && (
                     <a
                       href={`${Config.NODE_URL}/transactionStatus/${result.hash}`}
                       target='_blank'
                       rel='noreferrer noopener'
-                      className='block break-all underline hover:no-underline'
+                      className={styles.link}
                     >
                       {result.hash}
                     </a>
