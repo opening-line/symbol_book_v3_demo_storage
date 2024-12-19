@@ -24,6 +24,16 @@
   height: 100%;
 }
 
+.error p {
+  text-align: center;
+}
+
+.loadingIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline;
+}
+
 .image {
   height: 100%;
   width: 100%;

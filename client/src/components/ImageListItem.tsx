@@ -39,12 +39,12 @@ const ImageListItem: React.FC<ImageDisplayProps> = ({
           <div className={styles.loading}>
             <p>
               Loading
-              <EllipsisHorizontalIcon className='h-5 w-5 inline' />
+              <EllipsisHorizontalIcon className={styles.loadingIcon} />
             </p>
           </div>
         ) : error ? (
           <div className={styles.error}>
-            <p className='text-center'>{error}</p>
+            <p>{error}</p>
           </div>
         ) : (
           <>

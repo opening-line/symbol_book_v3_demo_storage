@@ -33,7 +33,6 @@ function GenerateKeyPage() {
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
-        <div className='space-y-6'></div>
         <h1 className={styles.title}>新規秘密鍵生成</h1>
         {privateKey && (
           <div className={styles.formGroup}>
