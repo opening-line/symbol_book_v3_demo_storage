@@ -12,29 +12,31 @@ const splitChunks = (hex: string, chunkSize = 2048) => {
 }
 
 function createHeader(
-  metadataChunksLength: number,
+  propertyChunksLength: number,
   imageChunksLength: number,
 ) {
   const version = "00000000"
   const reserve = "00000000"
   const length = numberToLittleEndianHexString(
-    1 + metadataChunksLength + imageChunksLength,
+    1 + propertyChunksLength + imageChunksLength,
   )
-  const metadataOffset = "01000000"
+  const propertyOffset = "01000000"
   const payloadOffset = numberToLittleEndianHexString(
-    metadataChunksLength + 1,
+    propertyChunksLength + 1,
   )
-  return [version, reserve, length, metadataOffset, payloadOffset].join("")
+  return [version, reserve, length, propertyOffset, payloadOffset].join("")
 }
 
-function createMetadata(fileName: string, timestamp: number) {
-  const metadataObject = {
+function createProperty(fileName: string, timestamp: number) {
+  const propertyObject = {
     fileName,
     timestamp,
   }
 
   const encoder = new TextEncoder()
-  return Array.from(encoder.encode(JSON.stringify(metadataObject)))
+  const propertyJsonString = JSON.stringify(propertyObject)
+  const propertyBytes = encoder.encode(propertyJsonString)
+  return Array.from(propertyBytes)
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("")
 }
@@ -48,14 +50,14 @@ function create(
   key: string
   chunk: string
 }> {
-  const metadataHex = createMetadata(file.name, timestamp)
+  const propertyHex = createProperty(file.name, timestamp)
 
   const imageChunks = splitChunks(imageHex)
-  const metadataChunks = splitChunks(metadataHex)
+  const propertyChunks = splitChunks(propertyHex)
 
-  const header = createHeader(metadataChunks.length, imageChunks.length)
+  const header = createHeader(propertyChunks.length, imageChunks.length)
 
-  return [header, ...metadataChunks, ...imageChunks].map(
+  return [header, ...propertyChunks, ...imageChunks].map(
     (chunk, index) => {
       return {
         key: numbersToLittleEndianHexNumbers(fileIndex, index),
