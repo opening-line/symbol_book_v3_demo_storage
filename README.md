@@ -17,12 +17,6 @@ $ npm i
 $ cp .env.sample .env
 ```
 
-`.env`ファイルを開き、`VITE_PRIVATE_KEY`にSymbolテストネットのXYM残高があるアカウントの秘密鍵を入力する。
-
-```
-VITE_PRIVATE_KEY=
-```
-
 アプリケーションを起動する。
 
 ```bash
