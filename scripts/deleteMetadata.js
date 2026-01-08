@@ -55,7 +55,7 @@ const transactionsHash =
   SymbolFacade.hashEmbeddedTransactions(innerTransactions);
 
 const transactionDescriptor =
-  new descriptors.AggregateCompleteTransactionV2Descriptor(
+  new descriptors.AggregateCompleteTransactionV3Descriptor(
     transactionsHash,
     innerTransactions,
   );
