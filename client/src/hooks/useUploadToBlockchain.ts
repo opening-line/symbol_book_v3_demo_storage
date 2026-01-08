@@ -55,7 +55,7 @@ export default function useUploadToBlockchain() {
       )
 
       const transaction = facade.transactionFactory.create({
-        type: "aggregate_complete_transaction_v2",
+        type: "aggregate_complete_transaction_v3",
         signerPublicKey,
         deadline,
         transactions: metadataTransactions,

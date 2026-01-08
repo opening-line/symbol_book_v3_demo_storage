@@ -11,7 +11,7 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "symbol-sdk": "^3.2.2"
+    "symbol-sdk": "^3.3.0"
   },
   "type": "module"
 }
